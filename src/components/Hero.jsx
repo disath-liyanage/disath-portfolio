@@ -5,7 +5,7 @@ function Hero() {
     <section id="home" className={styles.hero}>
       <p className={styles.kicker}>Hello, I am</p>
       <h1>Disath Liyanage</h1>
-      <p className={styles.subtitle}>CS Undergraduate | Web Developer in Sri Lanka</p>
+      <p className={styles.subtitle}>CS Undergraduate | Web Developer</p>
       <p className={styles.description}>
         I build practical and performance-focused web experiences with clean
         code, modern frontend architecture, and thoughtful user interactions.
