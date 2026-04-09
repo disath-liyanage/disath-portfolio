@@ -46,6 +46,27 @@
   padding-top: 0.5rem;
 }
 
+.sectionLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: center;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #c9d5f4;
+}
+
+.sectionLinks a {
+  border-bottom: 1px solid transparent;
+  line-height: 1.1;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.sectionLinks a:hover {
+  color: #9eddd2;
+  border-color: rgba(158, 221, 210, 0.7);
+}
+
 .primaryBtn,
 .secondaryBtn {
   border-radius: 0.75rem;
@@ -117,5 +138,10 @@
     inset: auto clamp(0.35rem, 2.2vw, 0.7rem) clamp(1.25rem, 3.5vh, 2rem) auto;
     width: clamp(7.8rem, 24vw, 11rem);
     height: clamp(7.8rem, 24vw, 11rem);
+  }
+
+  .sectionLinks {
+    gap: 0.75rem;
+    font-size: 0.88rem;
   }
 }
