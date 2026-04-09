@@ -2,18 +2,28 @@ import styles from './Projects.module.css'
 
 const projects = [
   {
+    title: 'Personal Portfolio Website',
+    description:
+      'A responsive personal portfolio website showcasing projects, skills, and contact information with structured content and SEO-optimized implementation for better discoverability.',
+    tech: ['React', 'Vite', 'CSS Modules', 'Responsive Design', 'SEO'],
+    github: 'https://github.com/disath-liyanage/disath-portfolio',
+    demo: 'https://disathliyanage.com',
+  },
+  {
     title: 'Nymo.lk',
     description:
       'Leading development of Nymo, a unified apparel e-commerce platform for underrated sellers, including a responsive storefront and vendor dashboard focused on clean UI, smooth navigation, and accessibility.',
     tech: ['React', 'Node.js', 'Express', 'MongoDB'],
-    github: 'https://github.com/disath-liyanage',
+    github: 'https://github.com/isblu/Nymo  ',
+    demo: 'https://preview.store.nymo.lk/',
   },
   {
     title: 'OceaVia',
     description:
       'A responsive awareness platform supporting UN SDG 14 - Life Below Water, with structured content, smooth navigation, and accessibility-focused implementation.',
     tech: ['HTML', 'CSS', 'JavaScript'],
-    github: 'https://github.com/disath-liyanage',
+    github: 'https://github.com/disath-liyanage/OceaVia-Website',
+    demo: 'https://disath-liyanage.github.io/OceaVia-Website/',
   },
   {
     title: 'Agri Guide',
@@ -32,7 +42,7 @@ const projects = [
     description:
       'A Python-based task manager with add, update, and priority organization features (high, medium, low) for efficient daily workload management.',
     tech: ['Python'],
-    github: 'https://github.com/disath-liyanage',
+    github: 'https://github.com/disath-liyanage/Personal-Task-Manager',
   },
 ]
 
@@ -55,12 +65,17 @@ function Projects() {
             {(project.github || project.demo) && (
               <div className={styles.actions}>
                 {project.github && (
-                  <a href={project.github} target="_blank" rel="noreferrer">
+                  <a className={styles.linkBtn} href={project.github} target="_blank" rel="noreferrer">
                     GitHub
                   </a>
                 )}
                 {project.demo && (
-                  <a href={project.demo} target="_blank" rel="noreferrer">
+                  <a
+                    className={`${styles.linkBtn} ${styles.demoBtn}`}
+                    href={project.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     Live Demo
                   </a>
                 )}

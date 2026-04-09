@@ -7,9 +7,8 @@ function Hero() {
       <h1>Disath Liyanage</h1>
       <p className={styles.subtitle}>CS Undergraduate | Developer</p>
       <p className={styles.description}>
-        Seeking opportunities to apply my growing skills in software
-        development, web design, and practical problem-solving while building
-        meaningful digital products.
+        I build practical and performance-focused web experiences with clean 
+        code, modern frontend architecture, and thoughtful user interactions.
       </p>
       <div className={styles.actions}>
         <a className={styles.primaryBtn} href="#projects">

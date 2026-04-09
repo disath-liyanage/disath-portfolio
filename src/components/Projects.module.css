@@ -63,7 +63,7 @@
   margin-top: auto;
 }
 
-.actions a {
+.linkBtn {
   flex: 1;
   text-align: center;
   border-radius: 0.65rem;
@@ -73,18 +73,22 @@
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.actions a:hover {
+.linkBtn:hover {
   transform: translateY(-2px);
 }
 
-.actions a:first-child:hover {
+.linkBtn:hover {
   background: rgba(255, 255, 255, 0.06);
 }
 
-.actions a:last-child {
+.demoBtn {
   border-color: transparent;
   color: #071117;
   font-weight: 600;
+  background: linear-gradient(140deg, #8af6da 0%, #33d1a0 100%);
+}
+
+.demoBtn:hover {
   background: linear-gradient(140deg, #8af6da 0%, #33d1a0 100%);
 }
 
