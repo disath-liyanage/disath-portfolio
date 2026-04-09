@@ -2,13 +2,6 @@ import { useState } from 'react'
 import styles from './About.module.css'
 import headshot from '../assets/Headshot.jpeg'
 
-const education = [
-  'BSc (Hons) in Computer Science, IIT (Affiliated to University of Westminster) - Jan 2025 to Present',
-  'Foundation in Higher Education, IIT - Sep 2023 to May 2024 (Merit Pass)',
-  'G.C.E Advanced Level (Commerce Stream), Applied Private - Jun 2024 to Nov 2024',
-  'G.C.E Ordinary Level, Hanwella Rajasinghe Central College - Jan 2017 to May 2023',
-]
-
 function About() {
   const [showFallback, setShowFallback] = useState(false)
 
@@ -17,18 +10,17 @@ function About() {
       <div className={styles.content}>
         <h2>About Me</h2>
         <p>
-          I am Disath Liyanage, a Computer Science undergraduate at the
-          University of Westminster (via IIT), based in Panagoda, Homagama. I
-          have built academic and team projects in Python and web development,
-          and I enjoy combining clean implementation, practical problem-solving,
-          and collaboration to deliver useful software.
+          I am Disath Liyanage, a Computer Science undergraduate who loves
+          turning ideas into products people can actually use. I enjoy building
+          practical web experiences that feel fast, clear, and purposeful.
+        </p>
+        <p>
+          From UI design decisions to clean frontend architecture, I focus on
+          creating polished interfaces, solving real problems, and continuously
+          leveling up my skills through hands-on projects and teamwork.
         </p>
         <h3>Education</h3>
-        <ul>
-          {education.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+        <p>Computer Science Undergraduate</p>
       </div>
       <div className={styles.photoCard} aria-label="Disath Liyanage profile">
         {!showFallback ? (

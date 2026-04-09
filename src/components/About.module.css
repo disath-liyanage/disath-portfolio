@@ -18,18 +18,19 @@
   font-size: 1.9rem;
 }
 
+.content p + p {
+  margin-top: 0.8rem;
+}
+
 .content h3 {
-  margin: 1.25rem 0 0.7rem;
-  font-size: 1.1rem;
+  margin: 1.15rem 0 0.35rem;
+  font-size: 1.05rem;
   color: #d7def4;
 }
 
-.content ul {
-  margin: 0;
-  padding-left: 1.2rem;
-  color: var(--text-muted);
-  display: grid;
-  gap: 0.45rem;
+.educationLine {
+  color: #c9d6f8;
+  font-weight: 700;
 }
 
 .photoCard {
