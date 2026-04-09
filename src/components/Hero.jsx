@@ -7,7 +7,6 @@ function Hero() {
       <h1>Disath Liyanage</h1>
       <p className={styles.subtitle}>CS Undergraduate | Web Developer in Sri Lanka</p>
       <p className={styles.description}>
-        I am Disath, and this is the official portfolio of Disath Liyanage.
         I build practical and performance-focused web experiences with clean
         code, modern frontend architecture, and thoughtful user interactions.
       </p>
@@ -19,12 +18,6 @@ function Hero() {
           Download CV
         </a>
       </div>
-      <nav className={styles.sectionLinks} aria-label="Section links">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
       <div className={styles.glow} aria-hidden="true">
         <span></span>
       </div>
