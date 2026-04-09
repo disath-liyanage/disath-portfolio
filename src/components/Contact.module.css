@@ -1,0 +1,63 @@
+.contact {
+  padding: 5rem 0;
+}
+
+.contact h2 {
+  font-size: 1.9rem;
+  margin-bottom: 0.7rem;
+}
+
+.contact p {
+  max-width: 65ch;
+  margin-bottom: 1.2rem;
+}
+
+.form {
+  max-width: 720px;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.form label {
+  font-size: 0.9rem;
+  color: #d7def4;
+  font-weight: 500;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  border-radius: 0.7rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text);
+  padding: 0.82rem 0.9rem;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form input:focus,
+.form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(51, 209, 160, 0.2);
+}
+
+.form button {
+  justify-self: start;
+  margin-top: 0.4rem;
+  border: 0;
+  border-radius: 0.7rem;
+  padding: 0.85rem 1.3rem;
+  font: inherit;
+  font-weight: 600;
+  color: #071117;
+  cursor: pointer;
+  background: linear-gradient(140deg, #8af6da 0%, #33d1a0 100%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}

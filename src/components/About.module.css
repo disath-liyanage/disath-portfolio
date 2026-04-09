@@ -1,0 +1,63 @@
+.about {
+  padding: 5rem 0;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1.75rem;
+  border-bottom: 1px solid rgba(175, 187, 217, 0.12);
+}
+
+.content {
+  background: linear-gradient(145deg, rgba(26, 34, 54, 0.95), rgba(14, 20, 34, 0.95));
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.content h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.9rem;
+}
+
+.content h3 {
+  margin: 1.25rem 0 0.7rem;
+  font-size: 1.1rem;
+  color: #d7def4;
+}
+
+.content ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--text-muted);
+  display: grid;
+  gap: 0.45rem;
+}
+
+.photoCard {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(51, 209, 160, 0.2), transparent 45%),
+    linear-gradient(180deg, #1f2a45 0%, #121b30 100%);
+  display: grid;
+  place-items: center;
+  min-height: 300px;
+}
+
+.photoCard span {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(3rem, 9vw, 5rem);
+  font-weight: 700;
+  color: #e7eefc;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 860px) {
+  .about {
+    grid-template-columns: 1fr;
+    padding: 4rem 0;
+  }
+
+  .photoCard {
+    min-height: 220px;
+  }
+}
