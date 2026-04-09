@@ -31,7 +31,7 @@ function About() {
         {!showFallback ? (
           <img
             src={headshot}
-            alt="Disath Liyanage headshot"
+            alt="Disath Liyanage"
             className={styles.photo}
             onError={() => setShowFallback(true)}
           />
