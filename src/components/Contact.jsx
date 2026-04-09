@@ -37,9 +37,12 @@ function Contact() {
         <div className={styles.copy}>
           <h2>Contact</h2>
           <p>
-            If you would like to collaborate, discuss opportunities, or connect,
-            send me a message.
+            If you would like to collaborate, discuss opportunities, or
+            connect, send me a message.
           </p>
+          <p>Email: disathsenitha@gmail.com</p>
+          <p>Phone: +94 71 901 1158</p>
+          <p>Location: Panagoda, Homagama</p>
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit} noValidate>

@@ -3,9 +3,10 @@ import styles from './About.module.css'
 import headshot from '../assets/Headshot.jpeg'
 
 const education = [
-  'Computer Science Undergraduate',
-  'Academic focus: Software Engineering and Web Development',
-  'Based in Sri Lanka',
+  'BSc (Hons) in Computer Science, IIT (Affiliated to University of Westminster) - Jan 2025 to Present',
+  'Foundation in Higher Education, IIT - Sep 2023 to May 2024 (Merit Pass)',
+  'G.C.E Advanced Level (Commerce Stream), Applied Private - Jun 2024 to Nov 2024',
+  'G.C.E Ordinary Level, Hanwella Rajasinghe Central College - Jan 2017 to May 2023',
 ]
 
 function About() {
@@ -16,11 +17,11 @@ function About() {
       <div className={styles.content}>
         <h2>About Me</h2>
         <p>
-          I am Disath Liyanage, a Computer Science Undergraduate from Sri Lanka.
-          I enjoy turning ideas into products through frontend development,
-          full-stack experimentation, and continuous learning. I care about
-          maintainable code, accessible interfaces, and shipping projects that
-          solve real user problems.
+          I am Disath Liyanage, a Computer Science undergraduate at the
+          University of Westminster (via IIT), based in Panagoda, Homagama. I
+          have built academic and team projects in Python and web development,
+          and I enjoy combining clean implementation, practical problem-solving,
+          and collaboration to deliver useful software.
         </p>
         <h3>Education</h3>
         <ul>

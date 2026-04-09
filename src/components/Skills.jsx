@@ -1,9 +1,11 @@
 import styles from './Skills.module.css'
 
 const skillGroups = {
-  Languages: ['JavaScript', 'TypeScript', 'Python', 'Java', 'SQL'],
-  Frameworks: ['React', 'Vite', 'Node.js', 'Express'],
-  Tools: ['Git', 'GitHub', 'VS Code', 'Postman', 'Figma'],
+  General: ['Java', 'JavaScript', 'Python', 'OOP'],
+  Backend: ['Node.js', 'MySQL', 'MongoDB'],
+  Frontend: ['React', 'React Native', 'HTML5', 'CSS', 'Figma'],
+  'Soft Skills': ['Leadership', 'Group Communication', 'Teamwork', 'Problem Solving', 'Critical Thinking'],
+  'Other Skills': ['Gaming', 'Microsoft Word', 'Microsoft Excel', 'Microsoft PowerPoint'],
 }
 
 function Skills() {

@@ -2,28 +2,37 @@ import styles from './Projects.module.css'
 
 const projects = [
   {
-    title: 'Nymo',
+    title: 'Nymo.lk',
     description:
-      'A focused productivity app that helps users capture tasks, prioritize work, and track progress with a clean dashboard.',
+      'Leading development of Nymo, a unified apparel e-commerce platform for underrated sellers, including a responsive storefront and vendor dashboard focused on clean UI, smooth navigation, and accessibility.',
     tech: ['React', 'Node.js', 'Express', 'MongoDB'],
-    github: 'https://github.com/disath-liyanage/nymo',
-    demo: 'https://nymo.vercel.app/',
+    github: 'https://github.com/disath-liyanage',
   },
   {
-    title: 'CodeSprint Tracker',
+    title: 'OceaVia',
     description:
-      'A coding challenge tracker that visualizes solved problems, streaks, and topic performance for consistent daily practice.',
-    tech: ['React', 'Chart.js', 'Firebase'],
-    github: 'https://github.com/disath-liyanage/codesprint-tracker',
-    demo: 'https://codesprint-tracker.vercel.app/',
+      'A responsive awareness platform supporting UN SDG 14 - Life Below Water, with structured content, smooth navigation, and accessibility-focused implementation.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    github: 'https://github.com/disath-liyanage',
   },
   {
-    title: 'Campus Connect',
+    title: 'Agri Guide',
     description:
-      'A student collaboration platform for sharing notices, project ideas, and event updates in one streamlined interface.',
-    tech: ['React', 'Vite', 'Supabase'],
-    github: 'https://github.com/disath-liyanage/campus-connect',
-    demo: 'https://campus-connect.vercel.app/',
+      'An innovative farming assistance app UI/UX concept designed in Figma to help farmers maximize harvest and reduce losses using practical guidance.',
+    tech: ['Figma', 'UI/UX Design'],
+  },
+  {
+    title: 'CoreUp',
+    description:
+      'A co-developed fitness platform (MEAN stack) for tracking workouts, reps, weights, and calorie intake through a comprehensive and intuitive experience.',
+    tech: ['MongoDB', 'Express', 'Angular', 'Node.js'],
+  },
+  {
+    title: 'Task Manager',
+    description:
+      'A Python-based task manager with add, update, and priority organization features (high, medium, low) for efficient daily workload management.',
+    tech: ['Python'],
+    github: 'https://github.com/disath-liyanage',
   },
 ]
 
@@ -43,14 +52,20 @@ function Projects() {
                 </span>
               ))}
             </div>
-            <div className={styles.actions}>
-              <a href={project.github} target="_blank" rel="noreferrer">
-                GitHub
-              </a>
-              <a href={project.demo} target="_blank" rel="noreferrer">
-                Live Demo
-              </a>
-            </div>
+            {(project.github || project.demo) && (
+              <div className={styles.actions}>
+                {project.github && (
+                  <a href={project.github} target="_blank" rel="noreferrer">
+                    GitHub
+                  </a>
+                )}
+                {project.demo && (
+                  <a href={project.demo} target="_blank" rel="noreferrer">
+                    Live Demo
+                  </a>
+                )}
+              </div>
+            )}
           </article>
         ))}
       </div>
