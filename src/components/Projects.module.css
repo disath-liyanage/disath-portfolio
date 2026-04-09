@@ -1,5 +1,5 @@
 .projects {
-  padding: 5rem 0;
+  padding: clamp(2.8rem, 6vw, 4rem) 0;
   border-bottom: 1px solid rgba(175, 187, 217, 0.12);
 }
 
@@ -20,6 +20,8 @@
   border-radius: 1rem;
   padding: 1.2rem;
   display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  align-content: start;
   gap: 0.9rem;
   transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
 }
@@ -32,6 +34,12 @@
 
 .card h3 {
   font-size: 1.18rem;
+  margin: 0;
+}
+
+.card p {
+  margin: 0;
+  line-height: 1.65;
 }
 
 .tags {
@@ -46,12 +54,13 @@
   font-size: 0.8rem;
   border: 1px solid var(--border);
   color: #dde4f8;
+  font-weight: 400;
 }
 
 .actions {
   display: flex;
   gap: 0.6rem;
-  margin-top: 0.2rem;
+  margin-top: auto;
 }
 
 .actions a {

@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import styles from './About.module.css'
+import headshot from '../assets/Headshot.jpeg'
 
 const education = [
   'Computer Science Undergraduate',
@@ -7,6 +9,8 @@ const education = [
 ]
 
 function About() {
+  const [showFallback, setShowFallback] = useState(false)
+
   return (
     <section id="about" className={styles.about}>
       <div className={styles.content}>
@@ -25,8 +29,17 @@ function About() {
           ))}
         </ul>
       </div>
-      <div className={styles.photoCard} aria-label="Disath Liyanage profile placeholder">
-        <span>DL</span>
+      <div className={styles.photoCard} aria-label="Disath Liyanage profile">
+        {!showFallback ? (
+          <img
+            src={headshot}
+            alt="Disath Liyanage headshot"
+            className={styles.photo}
+            onError={() => setShowFallback(true)}
+          />
+        ) : (
+          <span>DL</span>
+        )}
       </div>
     </section>
   )

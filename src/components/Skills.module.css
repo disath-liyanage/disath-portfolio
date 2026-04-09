@@ -1,5 +1,5 @@
 .skills {
-  padding: 5rem 0;
+  padding: clamp(2.8rem, 6vw, 4rem) 0;
   border-bottom: 1px solid rgba(175, 187, 217, 0.12);
 }
 
@@ -46,6 +46,7 @@
   color: #d7def4;
   background: rgba(255, 255, 255, 0.02);
   font-size: 0.86rem;
+  font-weight: 400;
 }
 
 @media (max-width: 920px) {

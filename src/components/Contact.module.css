@@ -1,19 +1,28 @@
 .contact {
-  padding: 5rem 0;
+  padding: clamp(2.8rem, 6vw, 4rem) 0;
 }
 
-.contact h2 {
+.layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 1.2rem;
+  align-items: start;
+}
+
+.copy h2 {
   font-size: 1.9rem;
   margin-bottom: 0.7rem;
 }
 
-.contact p {
-  max-width: 65ch;
-  margin-bottom: 1.2rem;
+.copy p {
+  max-width: 40ch;
 }
 
 .form {
-  max-width: 720px;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: linear-gradient(165deg, rgba(21, 28, 46, 0.96), rgba(12, 17, 29, 0.96));
   display: grid;
   gap: 0.7rem;
 }
@@ -57,7 +66,36 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.form button:disabled {
+  opacity: 0.8;
+  cursor: wait;
+}
+
 .form button:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow);
+}
+
+.success,
+.error {
+  margin-top: 0.2rem;
+  font-size: 0.94rem;
+}
+
+.success {
+  color: #8ef2d4;
+}
+
+.error {
+  color: #ff9fa8;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .copy p {
+    max-width: 100%;
+  }
 }

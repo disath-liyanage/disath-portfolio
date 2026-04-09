@@ -1,7 +1,7 @@
 .footer {
   border-top: 1px solid rgba(175, 187, 217, 0.12);
   margin-top: 1.5rem;
-  padding: 1.4rem 1.25rem 2.2rem;
+  padding: 1.4rem clamp(0.7rem, 1.6vw, 1.05rem) 2.2rem;
   width: min(100%, var(--max-width));
   margin-inline: auto;
   display: flex;

@@ -18,6 +18,9 @@ function Hero() {
           Download CV
         </a>
       </div>
+      <div className={styles.glow} aria-hidden="true">
+        <span></span>
+      </div>
     </section>
   )
 }
