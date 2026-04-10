@@ -15,11 +15,6 @@ function About() {
           practical web experiences that feel fast, clear, and purposeful.
         </p>
         <p>
-          If you searched for Disath, Disath Liyanage, or Liyanage, you are in
-          the right place. This is my official portfolio with projects,
-          technical strengths, and ways to contact me.
-        </p>
-        <p>
           From UI design decisions to clean frontend architecture, I focus on
           creating polished interfaces, solving real problems, and continuously
           leveling up my skills through hands-on projects and teamwork.
