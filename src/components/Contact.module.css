@@ -11,6 +11,13 @@
   background: linear-gradient(165deg, rgba(21, 28, 46, 0.95), rgba(10, 15, 27, 0.95));
   display: grid;
   gap: 0.95rem;
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+}
+
+.form:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: rgba(51, 209, 160, 0.6);
 }
 
 .form h2 {

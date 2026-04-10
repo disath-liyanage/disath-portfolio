@@ -47,6 +47,16 @@
   background: rgba(255, 255, 255, 0.02);
   font-size: 0.86rem;
   font-weight: 400;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.tag:hover {
+  font-weight: 700;
+  color: #071117;
+  background: linear-gradient(140deg, #8af6da 0%, #33d1a0 100%);
+  border-color: rgba(138, 246, 218, 0.9);
 }
 
 @media (max-width: 920px) {
