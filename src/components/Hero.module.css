@@ -85,12 +85,17 @@
   border: 1px solid var(--border);
   color: var(--text);
   background: rgba(255, 255, 255, 0.02);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(20px);
 }
 
-.primaryBtn:hover,
-.secondaryBtn:hover {
+.primaryBtn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow);
+}
+
+.secondaryBtn:hover {
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .glow {

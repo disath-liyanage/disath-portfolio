@@ -14,8 +14,13 @@ function Hero() {
         <a className={styles.primaryBtn} href="#projects">
           View Projects
         </a>
-        <a className={styles.secondaryBtn} href="/Disath-Liyanage-CV.pdf" download>
-          Download CV
+        <a
+          className={styles.secondaryBtn}
+          href="https://www.disathliyanage.com/Disath-Liyanage-CV.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Resume
         </a>
       </div>
       <div className={styles.glow} aria-hidden="true">
