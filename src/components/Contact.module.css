@@ -58,6 +58,7 @@
 }
 
 .form input,
+.form select,
 .form textarea {
   width: 100%;
   border-radius: 0.7rem;
@@ -71,15 +72,33 @@
 }
 
 .form input[aria-invalid='true'],
+.form select[aria-invalid='true'],
 .form textarea[aria-invalid='true'] {
   border-color: #ff9fa8;
   box-shadow: 0 0 0 3px rgba(255, 159, 168, 0.18);
 }
 
 .form input:focus,
+.form select:focus,
 .form textarea:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(51, 209, 160, 0.2);
+}
+
+.mobileRow {
+  display: flex;
+  align-items: stretch;
+  gap: 0.55rem;
+}
+
+.countryCode {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.mobileInput {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .form button {
@@ -127,6 +146,11 @@
   line-height: 1.45;
 }
 
+.contactError {
+  grid-column: 1 / -1;
+  margin-top: -0.35rem;
+}
+
 @media (max-width: 860px) {
   .form {
     padding: 1rem;
@@ -138,5 +162,13 @@
 
   .fieldFull {
     grid-column: auto;
+  }
+
+  .mobileRow {
+    flex-direction: column;
+  }
+
+  .countryCode {
+    width: 100% !important;
   }
 }
