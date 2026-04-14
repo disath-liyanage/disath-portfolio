@@ -57,6 +57,11 @@ section {
   scroll-margin-top: 1rem;
 }
 
+main > section:not(:first-of-type) {
+  content-visibility: auto;
+  contain-intrinsic-size: 700px;
+}
+
 h1,
 h2,
 h3 {

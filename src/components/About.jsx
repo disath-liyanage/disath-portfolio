@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styles from './About.module.css'
-import headshot from '../assets/Headshot.jpeg'
+import headshot from '../assets/Headshot.jpg'
 
 function About() {
   const [showFallback, setShowFallback] = useState(false)
@@ -28,6 +28,10 @@ function About() {
             src={headshot}
             alt="Disath Liyanage"
             className={styles.photo}
+            loading="lazy"
+            decoding="async"
+            width="560"
+            height="560"
             onError={() => setShowFallback(true)}
           />
         ) : (

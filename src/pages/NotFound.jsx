@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 function NotFound() {
-  const navigate = useNavigate()
   const [secondsLeft, setSecondsLeft] = useState(5)
 
   useEffect(() => {
     if (secondsLeft <= 0) {
-      navigate('/', { replace: true })
+      window.location.replace('/')
       return undefined
     }
 
@@ -16,10 +14,10 @@ function NotFound() {
     }, 1000)
 
     return () => clearTimeout(timer)
-  }, [secondsLeft, navigate])
+  }, [secondsLeft])
 
   const goHomeNow = () => {
-    navigate('/', { replace: true })
+    window.location.replace('/')
   }
 
   return (
