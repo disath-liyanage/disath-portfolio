@@ -237,6 +237,9 @@ function Contact() {
           <div className={styles.fieldGroup}>
             <label htmlFor="mobile">Mobile Number</label>
             <div className={styles.mobileRow}>
+              <label htmlFor="countryCode" className={styles.srOnly}>
+                Country code
+              </label>
               <select
                 id="countryCode"
                 name="countryCode"
