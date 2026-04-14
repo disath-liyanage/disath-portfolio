@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styles from './Contact.module.css'
 
 const EMPTY_ERRORS = {
-  name: '',
+  firstName: '',
   mobile: '',
   email: '',
   contact: '',
@@ -82,7 +82,7 @@ function Contact() {
   function handleFormChange(event) {
     const form = event.currentTarget
     const formData = new FormData(form)
-    const name = String(formData.get('name') || '').trim()
+    const firstName = String(formData.get('firstName') || '').trim()
     const mobileRaw = String(formData.get('mobile') || '').trim()
     const mobile = mobileRaw.replace(/[^\d]/g, '')
     const email = String(formData.get('email') || '').trim()
@@ -91,8 +91,8 @@ function Contact() {
     setErrors((previous) => {
       const next = { ...previous }
 
-      if (next.name && name) {
-        next.name = ''
+      if (next.firstName && firstName) {
+        next.firstName = ''
       }
 
       if (next.message && message) {
@@ -128,7 +128,8 @@ function Contact() {
 
     const form = event.currentTarget
     const formData = new FormData(form)
-    const name = String(formData.get('name') || '').trim()
+    const firstName = String(formData.get('firstName') || '').trim()
+    const lastName = String(formData.get('lastName') || '').trim()
     const selectedCountryCode = String(formData.get('countryCode') || '+94').trim()
     const mobileRaw = String(formData.get('mobile') || '').trim()
     const mobile = mobileRaw.replace(/[^\d]/g, '')
@@ -137,8 +138,8 @@ function Contact() {
 
     const nextErrors = { ...EMPTY_ERRORS }
 
-    if (!name) {
-      nextErrors.name = 'Please enter your name.'
+    if (!firstName) {
+      nextErrors.firstName = 'Please enter your first name.'
     }
 
     if (!mobile && !email) {
@@ -159,7 +160,7 @@ function Contact() {
       nextErrors.message = 'Please enter your message.'
     }
 
-    if (nextErrors.name || nextErrors.mobile || nextErrors.email || nextErrors.contact || nextErrors.message) {
+    if (nextErrors.firstName || nextErrors.mobile || nextErrors.email || nextErrors.contact || nextErrors.message) {
       setErrors(nextErrors)
       setStatus('idle')
       return
@@ -169,7 +170,9 @@ function Contact() {
     setStatus('submitting')
 
     const payload = new FormData()
-    payload.append('name', name)
+    payload.append('firstName', firstName)
+    payload.append('lastName', lastName)
+    payload.append('name', `${firstName} ${lastName}`.trim())
     payload.append('countryCode', selectedCountryCode)
     payload.append('mobile', mobile)
     payload.append('phone', mobile ? `${selectedCountryCode} ${mobile}` : '')
@@ -215,15 +218,20 @@ function Contact() {
 
         <div className={styles.fields}>
           <div className={styles.fieldGroup}>
-            <label htmlFor="name">Name</label>
+            <label htmlFor="firstName">First Name</label>
             <input
-              id="name"
-              name="name"
+              id="firstName"
+              name="firstName"
               type="text"
               required
-              aria-invalid={errors.name ? 'true' : 'false'}
+              aria-invalid={errors.firstName ? 'true' : 'false'}
             />
-            {errors.name && <p className={styles.fieldError}>{errors.name}</p>}
+            {errors.firstName && <p className={styles.fieldError}>{errors.firstName}</p>}
+          </div>
+
+          <div className={styles.fieldGroup}>
+            <label htmlFor="lastName">Last Name (optional)</label>
+            <input id="lastName" name="lastName" type="text" />
           </div>
 
           <div className={styles.fieldGroup}>
@@ -256,7 +264,7 @@ function Contact() {
             {errors.mobile && <p className={styles.fieldError}>{errors.mobile}</p>}
           </div>
 
-          <div className={`${styles.fieldGroup} ${styles.fieldFull}`}>
+          <div className={styles.fieldGroup}>
             <label htmlFor="email">Email</label>
             <input id="email" name="email" type="email" aria-invalid={errors.email ? 'true' : 'false'} />
             {errors.email && <p className={styles.fieldError}>{errors.email}</p>}
