@@ -80,8 +80,10 @@ function Skills() {
       const panels = panelsRef.current
       const activeIndex = activeIndexRef.current
 
-      splitsRef.current = panels.map((el, i) =>
-        SplitText.create(el, {
+      splitsRef.current = panels.map((el, i) => {
+        const textNodes = el.querySelectorAll('.' + styles.skillText)
+
+        return SplitText.create(textNodes, {
           type: 'lines',
           mask: 'lines',
           linesClass: styles.splitLine,
@@ -95,7 +97,7 @@ function Skills() {
             }
           },
         })
-      )
+      })
     })
 
     return () => {
@@ -173,8 +175,6 @@ function Skills() {
 
   return (
     <section id="skills" className={styles.skills} ref={sectionRef}>
-      <h2 className={styles.heading}>Skills</h2>
-
       <div className={styles.tabs}>
         {TABS.map((tab, i) => (
           <button
@@ -197,9 +197,9 @@ function Skills() {
             style={{ opacity: i === 0 ? 1 : 0 }}
           >
             {SKILLS[tab].map((skill) => (
-              <span key={skill} className={styles.skillLine}>
-                {skill}
-              </span>
+              <div key={skill} className={styles.skillWrapper}>
+                <div className={styles.skillText}>{skill}</div>
+              </div>
             ))}
           </div>
         ))}
