@@ -33,7 +33,7 @@ body {
   background-color: var(--bg);
   min-height: 100svh;
   overscroll-behavior-y: none;
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
 }
 
@@ -76,7 +76,7 @@ body::before {
 #root {
   min-height: 100svh;
   background-color: transparent;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 a {

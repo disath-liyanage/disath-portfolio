@@ -1,85 +1,44 @@
 .about {
-  padding: clamp(2.4rem, 6vh, 4rem) 0;
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 1.75rem;
-  border-bottom: 1px solid rgba(175, 187, 217, 0.12);
+  height: 240vh;
+  position: relative;
 }
 
-.content {
-  background: linear-gradient(145deg, rgba(26, 34, 54, 0.95), rgba(14, 20, 34, 0.95));
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem clamp(1.2rem, 6vw, 6rem) 0;
 }
 
-.content:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
-  border-color: rgba(51, 209, 160, 0.6);
+.text {
+  max-width: 56rem;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(1.5rem, 3.4vw, 2.5rem);
+  line-height: 1.55;
+  text-align: center;
+  margin: 0;
 }
 
-.content h2 {
-  margin-bottom: 0.75rem;
-  font-size: 1.9rem;
+.word {
+  display: inline;
+  color: var(--text);
+  font-weight: 400;
+  transition: opacity 0.15s linear;
 }
 
-.content p + p {
-  margin-top: 0.8rem;
-}
-
-.content h3 {
-  margin: 1.15rem 0 0.35rem;
-  font-size: 1.05rem;
-  color: #d7def4;
-}
-
-.educationLine {
-  color: #c9d6f8;
+.wordActive {
   font-weight: 700;
 }
 
-.photoCard {
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(51, 209, 160, 0.2), transparent 45%),
-    linear-gradient(180deg, #1f2a45 0%, #121b30 100%);
-  display: grid;
-  place-items: center;
-  min-height: 300px;
-  overflow: hidden;
-  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
-}
-
-.photoCard:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
-  border-color: rgba(51, 209, 160, 0.6);
-}
-
-.photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.photoCard span {
-  font-family: 'Outfit', sans-serif;
-  font-size: clamp(3rem, 9vw, 5rem);
-  font-weight: 700;
-  color: #e7eefc;
-  letter-spacing: 0.08em;
-}
-
-@media (max-width: 860px) {
+@media (max-width: 640px) {
   .about {
-    grid-template-columns: 1fr;
-    padding: 4rem 0;
+    height: 220vh;
   }
 
-  .photoCard {
-    min-height: 220px;
+  .sticky {
+    padding-top: 5rem;
   }
 }
