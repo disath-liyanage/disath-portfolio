@@ -6,21 +6,11 @@
   align-items: center;
 }
 
-.heading {
-  font-family: 'Space Grotesk', 'Outfit', system-ui, sans-serif;
-  font-size: clamp(2.4rem, 5vw, 3.8rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--text, #e7eefc);
-  margin: 0 0 2.5rem;
-  text-align: center;
-}
-
 .tabs {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   flex-wrap: wrap;
 }
 
@@ -47,8 +37,9 @@
 }
 
 .tab.active {
-  background: rgba(231, 238, 252, 0.95);
+  background: #ffffff;
   color: #0e1422;
+  font-weight: 700;
   border-color: transparent;
 }
 
@@ -57,33 +48,44 @@
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
-  max-width: 680px;
+  max-width: 900px;
   min-height: 14rem;
-  padding: 0 clamp(1.5rem, 6vw, 4rem);
+  padding: 0 1.5rem;
 }
 
 .panel {
   grid-column: 1;
   grid-row: 1;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: clamp(4rem, 15vw, 12rem);
+  row-gap: 1.5rem;
+  width: 100%;
   align-items: center;
-  gap: 0;
 }
 
-.skillLine {
-  display: block;
+.skillWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.skillWrapper:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.skillText {
+  overflow: hidden;
   font-family: 'Space Grotesk', 'Outfit', system-ui, sans-serif;
-  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
   font-weight: 600;
   line-height: 1.18;
   letter-spacing: -0.03em;
   color: var(--text, #e7eefc);
+  white-space: nowrap;
 }
 
 .splitLine {
-  overflow: hidden;
   display: block;
 }
 
@@ -91,9 +93,11 @@
   .tabs {
     gap: 8px;
   }
-
   .tab {
     font-size: 13px;
     padding: 8px 15px;
+  }
+  .panel {
+    column-gap: 2rem;
   }
 }
