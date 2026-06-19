@@ -3,28 +3,20 @@ import styles from './Hero.module.css'
 function Hero() {
   return (
     <section id="home" className={styles.hero}>
-      <p className={styles.kicker}>Hello, I am</p>
-      <h1>Disath Liyanage</h1>
-      <p className={styles.subtitle}>CS Undergraduate | Web Developer</p>
-      <p className={styles.description}>
-        I build practical and performance-focused web experiences with clean
-        code, modern frontend architecture, and thoughtful user interactions.
-      </p>
-      <div className={styles.actions}>
-        <a className={styles.primaryBtn} href="#projects">
-          View Projects
-        </a>
-        <a
-          className={styles.secondaryBtn}
-          href="https://www.disathliyanage.com/Disath-Liyanage-CV.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View Resume
-        </a>
-      </div>
-      <div className={styles.glow} aria-hidden="true">
-        <span></span>
+      <h1 className={styles.morphContainer} aria-label="Hey, I'm Disath Liyanage">
+        <span className={styles.word} aria-hidden="true">Hey</span>
+        <span className={styles.word} aria-hidden="true">I&apos;m</span>
+        <span className={`${styles.word} ${styles.finalWord}`} aria-hidden="true">
+          Disath Liyanage
+        </span>
+      </h1>
+
+      <p className={styles.subtext}>Computer Science Undergraduate</p>
+
+      <div className={styles.scrollIndicator} aria-hidden="true">
+        <div className={styles.mouse}>
+          <div className={styles.wheel} />
+        </div>
       </div>
     </section>
   )
