@@ -1,42 +1,65 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './About.module.css'
-import headshot from '../assets/Headshot.jpg'
+
+const BIO =
+  "I am Disath Liyanage, a Computer Science undergraduate at University " +
+  "of Westminster who loves turning ideas into products " +
+  "people can actually use. I build practical, performance-focused web " +
+  "experiences with clean code and thoughtful frontend architecture, " +
+  "and I'm always leveling up through hands-on projects and teamwork."
+
+const WORDS = BIO.split(' ')
 
 function About() {
-  const [showFallback, setShowFallback] = useState(false)
+  const wrapperRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    let frame = null
+
+    const measure = () => {
+      const el = wrapperRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const scrollable = rect.height - window.innerHeight
+      const scrolled = -rect.top
+      const progress = scrollable > 0 ? Math.min(Math.max(scrolled / scrollable, 0), 1) : 0
+      setActiveIndex(progress * WORDS.length)
+    }
+
+    const onScroll = () => {
+      if (frame) return
+      frame = requestAnimationFrame(() => {
+        measure()
+        frame = null
+      })
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    measure()
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (frame) cancelAnimationFrame(frame)
+    }
+  }, [])
 
   return (
-    <section id="about" className={styles.about}>
-      <div className={styles.content}>
-        <h2>About Me</h2>
-        <p>
-          I am Disath Liyanage, a Computer Science undergraduate who loves
-          turning ideas into products people can actually use. I enjoy building
-          practical web experiences that feel fast, clear, and purposeful.
+    <section id="about" className={styles.about} ref={wrapperRef}>
+      <div className={styles.sticky}>
+        <p className={styles.text}>
+          {WORDS.map((word, i) => {
+            const reveal = Math.min(Math.max(activeIndex - i, 0), 1)
+            return (
+              <span
+                key={i}
+                className={`${styles.word} ${reveal > 0.5 ? styles.wordActive : ''}`}
+                style={{ opacity: 0.25 + reveal * 0.75 }}
+              >
+                {word}{' '}
+              </span>
+            )
+          })}
         </p>
-        <p>
-          From UI design decisions to clean frontend architecture, I focus on
-          creating polished interfaces, solving real problems, and continuously
-          leveling up my skills through hands-on projects and teamwork.
-        </p>
-        <h3>Education</h3>
-        <p>Computer Science Undergraduate</p>
-      </div>
-      <div className={styles.photoCard} aria-label="Disath Liyanage profile">
-        {!showFallback ? (
-          <img
-            src={headshot}
-            alt="Disath Liyanage"
-            className={styles.photo}
-            loading="lazy"
-            decoding="async"
-            width="560"
-            height="560"
-            onError={() => setShowFallback(true)}
-          />
-        ) : (
-          <span>DL</span>
-        )}
       </div>
     </section>
   )
