@@ -5,6 +5,7 @@ const SKILLS = {
   Frontend: [
     'React',
     'JavaScript',
+    'React Native',
     'HTML',
     'CSS',
     'Tailwind CSS',
@@ -193,7 +194,7 @@ function Skills() {
           <div
             key={tab}
             ref={(el) => (panelsRef.current[i] = el)}
-            className={styles.panel}
+            className={`${styles.panel} ${tab === 'Soft Skills' ? styles.wideGap : styles.narrowGap}`}
             style={{ opacity: i === 0 ? 1 : 0 }}
           >
             {SKILLS[tab].map((skill) => (

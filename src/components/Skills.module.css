@@ -58,10 +58,17 @@
   grid-row: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: clamp(4rem, 15vw, 12rem);
   row-gap: 1.5rem;
   width: 100%;
   align-items: center;
+}
+
+.panel.narrowGap {
+  column-gap: clamp(0.5rem, 2vw, 2rem); 
+}
+
+x.panel.wideGap {
+  column-gap: clamp(4rem, 15vw, 12rem); 
 }
 
 .skillWrapper {
@@ -97,7 +104,10 @@
     font-size: 13px;
     padding: 8px 15px;
   }
-  .panel {
+  .panel.wideGap {
     column-gap: 2rem;
+  }
+  .panel.narrowGap {
+    column-gap: 0.1rem;
   }
 }
