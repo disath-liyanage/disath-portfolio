@@ -1,14 +1,17 @@
 :root {
-  --bg: #090c12;
-  --bg-muted: #121826;
-  --surface: #151c2e;
-  --surface-2: #1a2236;
-  --text: #f4f7ff;
-  --text-muted: #afbbd9;
-  --accent: #33d1a0;
-  --accent-strong: #0eb485;
-  --border: #28344f;
-  --shadow: 0 14px 30px rgba(0, 0, 0, 0.36);
+  --bg: #08080a;
+  --bg-muted: #0e0e12;
+  --surface: #111114;
+  --surface-2: #16161b;
+  --text: #f2f1ed;
+  --text-muted: #8c8c93;
+  --accent: #d8d4c8;
+  --accent-strong: #ffffff;
+  --border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-highlight: rgba(255, 255, 255, 0.6);
+  --shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   --max-width: 1320px;
 }
 
@@ -27,13 +30,47 @@ body {
   font-family: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
   font-weight: 400;
   color: var(--text);
-  background:
-    radial-gradient(circle at 15% 5%, rgba(51, 209, 160, 0.15), transparent 45%),
-    linear-gradient(160deg, var(--bg) 0%, var(--bg-muted) 40%, var(--bg) 100%);
   background-color: var(--bg);
   min-height: 100svh;
   overscroll-behavior-y: none;
   overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    120deg,
+    #08080a 0%,
+    #121110 25%,
+    #0a0b0d 50%,
+    #0d1013 75%,
+    #08080a 100%
+  );
+  background-size: 320% 320%;
+  animation: gradient-drift 26s ease infinite;
+}
+
+@keyframes gradient-drift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+    background-position: 0% 50%;
+  }
 }
 
 #root {
