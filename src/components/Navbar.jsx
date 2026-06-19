@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './Navbar.module.css'
 import glass from './liquidGlass.module.css'
 
@@ -11,25 +11,24 @@ const LINKS = [
 ]
 
 function Navbar() {
-  const navRef = useRef(null)
   const [active, setActive] = useState('home')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [pastHero, setPastHero] = useState(false)
 
-  // Cheap "liquid glass" specular highlight that follows the pointer,
-  // done with a CSS custom property instead of a per-pixel WebGL shader.
   useEffect(() => {
-    const el = navRef.current
-    if (!el) return
-    const handleMove = (e) => {
-      const rect = el.getBoundingClientRect()
-      const x = ((e.clientX - rect.left) / rect.width) * 100
-      el.style.setProperty('--pointer-x', `${x}%`)
+    const hero = document.getElementById('home')
+    if (!hero) {
+      setPastHero(true)
+      return
     }
-    el.addEventListener('pointermove', handleMove)
-    return () => el.removeEventListener('pointermove', handleMove)
+    const observer = new IntersectionObserver(
+      ([entry]) => setPastHero(!entry.isIntersecting),
+      { rootMargin: '-80% 0px 0px 0px' }
+    )
+    observer.observe(hero)
+    return () => observer.disconnect()
   }, [])
 
-  // Track which section is in view to highlight the active link.
   useEffect(() => {
     const sections = LINKS.map((l) => document.getElementById(l.id)).filter(Boolean)
     if (!sections.length) return
@@ -48,8 +47,8 @@ function Navbar() {
   const handleLinkClick = () => setMenuOpen(false)
 
   return (
-    <header className={styles.wrap}>
-      <nav ref={navRef} className={`${styles.glass} ${glass.liquidGlass}`} aria-label="Primary">
+    <header className={`${styles.wrap} ${pastHero ? styles.visible : ''}`}>
+      <nav className={`${styles.glass} ${glass.liquidGlass}`} aria-label="Primary">
         <a href="#home" className={styles.logo} onClick={handleLinkClick}>
           DL
         </a>
