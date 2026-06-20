@@ -1,3 +1,15 @@
+@property --mx {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 50%;
+}
+
+@property --my {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 0%;
+}
+
 .wrap {
   position: fixed;
   top: clamp(0.75rem, 2vh, 1.5rem);
@@ -23,7 +35,10 @@
 }
 
 .glass {
-  pointer-events: auto;
+  position: relative;
+  --mx: 50%;
+  --my: 0%;
+  transition: --mx 0.2s ease, --my 0.2s ease;
   display: flex;
   align-items: center;
   gap: clamp(1.2rem, 3vw, 2.5rem);
@@ -38,21 +53,24 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    160px 60px at 50% 0%,
+    160px 60px at var(--mx) var(--my),
     var(--glass-highlight),
     transparent 70%
   );
-  opacity: 0.18;
+  opacity: 0.22;
   pointer-events: none;
 }
 
 .logo {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
-  color: var(--accent-strong);
+  display: flex;
+  align-items: center;
   z-index: 1;
+}
+
+.logo img {
+  height: 1.9rem;
+  width: auto;
+  display: block;
 }
 
 .links {
