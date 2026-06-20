@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './Navbar.module.css'
-import logo from '../assets/logo.png' // Make sure this path is correct for your setup
+import logo from '../assets/logo.png'
 
 const LINKS = [
   { id: 'home', label: 'Home' },
