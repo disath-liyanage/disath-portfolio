@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './Navbar.module.css'
 import glass from './liquidGlass.module.css'
-import logo from '../assets/logo.png'
 
 const LINKS = [
   { id: 'home', label: 'Home' },
@@ -51,7 +50,7 @@ function Navbar() {
         aria-label="Primary"
       >
         <a href="#home" className={styles.logo} aria-label="Home">
-          <img src={logo} alt="Disath Liyanage" width="32" height="32" />
+          <img src="/logo.png" alt="Disath Liyanage" width="32" height="32" />
         </a>
 
         <ul className={styles.links}>
