@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import styles from './Navbar.module.css'
-import glass from './liquidGlass.module.css'
+import logo from '../assets/logo.png' // Make sure this path is correct for your setup
 
 const LINKS = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'contact', label: 'Contact' }
 ]
 
 function Navbar() {
@@ -45,29 +45,26 @@ function Navbar() {
 
   return (
     <header className={`${styles.wrap} ${pastHero ? styles.visible : ''}`}>
-      <nav
-        className={`${styles.glass} ${glass.liquidGlass}`}
-        aria-label="Primary"
-      >
+      {/* FIX: Removed liquidGlass entirely */}
+      <nav className={styles.glass} aria-label="Primary">
         <a href="#home" className={styles.logo} aria-label="Home">
-          <img src="/logo.png" alt="Disath Liyanage" width="32" height="32" />
+          <img src={logo} alt="Disath Liyanage" width="32" height="32" />
         </a>
 
-        <ul className={styles.links}>
+        <div className={styles.links}>
           {LINKS.map((link) => (
-            <li key={link.id} className={styles.listItem}>
-              <a
-                href={`#${link.id}`}
-                className={active === link.id ? styles.active : ''}
-              >
-                {link.label}
-              </a>
-            </li>
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              className={active === link.id ? styles.active : ''}
+            >
+              {link.label}
+            </a>
           ))}
-        </ul>
+        </div>
       </nav>
     </header>
   )
 }
 
-export default Navbar 
+export default Navbar

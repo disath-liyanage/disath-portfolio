@@ -32,18 +32,17 @@
   border-radius: 999px;
   overflow: hidden;
   pointer-events: auto;
+  transition: padding 0.3s ease, gap 0.3s ease;
+  
+  /* FIX: Hardware-accelerated, production-safe Glassmorphism */
+  background: rgba(15, 15, 15, 0.45); /* Dark tint applied directly */
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%); /* Required for Vercel/Safari */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle glass edge */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
-.glass::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  /* FIX: Spotlight removed entirely. Just keeping the flat dark tint. */
-  background-color: rgba(0, 0, 0, 0.25);
-  opacity: 0.3;
-  pointer-events: none;
-  z-index: -1;
-}
+/* FIX: The ::after pseudo-element was deleted completely */
 
 .logo {
   display: flex;
@@ -55,34 +54,18 @@
   height: 1.9rem;
   width: auto;
   display: block;
+  transition: height 0.3s ease;
 }
 
 .links {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2.4vw, 1.7rem);
+  gap: clamp(0.8rem, 2vw, 1.7rem);
   margin: 0;
   padding: 0;
   margin-left: auto;
   margin-right: 0;
-  /* FIX: Explicitly forcing no list styles on the parent */
-  list-style: none;
-  list-style-type: none;
   z-index: 1;
-}
-
-.listItem {
-  /* FIX: Nuke any browser default bullets, markers, or diamonds */
-  list-style: none;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* FIX: Absolute guarantee that markers won't render */
-.listItem::marker {
-  content: none;
-  display: none;
 }
 
 .links a {
@@ -90,9 +73,11 @@
   font-weight: 600;
   color: var(--text-muted);
   padding: 0.4rem 0.1rem;
-  transition: color 0.2s ease, font-weight 0.2s ease, text-shadow 0.2s ease;
+  transition: color 0.2s ease, font-weight 0.2s ease, text-shadow 0.2s ease, font-size 0.3s ease;
   position: relative;
+  text-decoration: none;
   text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
 }
 
 .links a:hover {
@@ -115,4 +100,34 @@
   height: 1px;
   background: var(--accent-strong);
   opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .wrap {
+    padding: 0 0.5rem;
+  }
+  
+  .glass {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    gap: 1rem;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .glass::-webkit-scrollbar {
+    display: none;
+  }
+
+  .logo img {
+    height: 1.5rem;
+  }
+
+  .links {
+    gap: 0.8rem;
+  }
+
+  .links a {
+    font-size: 0.75rem;
+  }
 }
