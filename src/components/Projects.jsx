@@ -164,29 +164,31 @@ export default function Projects() {
       <h2 className="projects-heading">Projects</h2>
 
       <div className="projects-layout">
-        {showNav && (
+        {/* Left nav - Only renders if it is NOT the first page */}
+        {showNav && !isFirst && (
           <LiquidGlassBtn
             direction="prev"
             onClick={() => setPage((p) => p - 1)}
-            disabled={isFirst}
           />
         )}
 
+        {/* Card grid */}
         <div className="projects-grid">
           {slice.map((proj) => (
             <ProjectCard key={proj.id} project={proj} />
           ))}
         </div>
 
-        {showNav && (
+        {/* Right nav - Only renders if it is NOT the last page */}
+        {showNav && !isLast && (
           <LiquidGlassBtn
             direction="next"
             onClick={() => setPage((p) => p + 1)}
-            disabled={isLast}
           />
         )}
       </div>
 
+      {/* Pagination dots */}
       {showNav && (
         <div className="projects-dots" role="tablist" aria-label="Project pages">
           {Array.from({ length: totalPages }, (_, i) => (
