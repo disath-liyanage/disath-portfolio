@@ -9,24 +9,14 @@
   border-radius: 50%;
   flex-shrink: 0;
   overflow: hidden;
-
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.18),
-    0 4px 24px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-
-  transition: box-shadow 0.25s ease, transform 0.2s ease, opacity 0.2s;
+  transition: transform 0.2s ease;
 }
 
-.lglass-btn:hover:not(.lglass-btn--off) {
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.35),
-    0 6px 32px rgba(130, 80, 240, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+.lglass-btn:hover {
   transform: scale(1.05);
 }
 
-.lglass-btn:active:not(.lglass-btn--off) {
+.lglass-btn:active {
   transform: scale(0.97);
 }
 
@@ -35,19 +25,12 @@
   outline-offset: 3px;
 }
 
-.lglass-btn--off {
-  opacity: 0.25;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
 .lglass-btn__canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   display: block;
-  border-radius: 50%;
 }
 
 .lglass-btn__arrow {
@@ -56,12 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  font-weight: 200;
-  line-height: 1;
   color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
   pointer-events: none;
   user-select: none;
-  padding-bottom: 2px;
 }

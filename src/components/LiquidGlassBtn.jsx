@@ -1,6 +1,18 @@
 import { useEffect, useRef } from 'react';
 import './LiquidGlassBtn.css';
 
+const PrevIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+);
+
+const NextIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+);
+
 const VERT_SRC = `
   attribute vec2 position;
   void main() {
@@ -16,14 +28,11 @@ const FRAG_SRC = `
 
   void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec2 uv = fragCoord / iResolution.xy;
-    
-    // Lock dead center. This permanently kills the floating movement.
     vec2 m2 = uv - 0.5;
 
-    // Change from squircle (pow 6) to perfect circle (dot product / pow 2)
+    // Perfect circle math
     float roundedBox = dot(m2, m2); 
 
-    // Multipliers scaled so the perfect circle fits exactly edge-to-edge
     float rb1 = clamp((1.0 - roundedBox * 4.0) * 8.0, 0.0, 1.0);
     float rb2 = clamp((0.95 - roundedBox * 3.8) * 16.0, 0.0, 1.0) -
                 clamp((0.9 - roundedBox * 3.8) * 16.0, 0.0, 1.0);
@@ -33,16 +42,12 @@ const FRAG_SRC = `
     float transition = smoothstep(0.0, 1.0, rb1 + rb2);
 
     if (transition > 0.0) {
-      // Calculate purely procedural lighting/refractions
       float gradient = clamp((clamp(m2.y, 0.0, 0.2) + 0.1) / 2.0, 0.0, 1.0) +
                        clamp((clamp(-m2.y, -1.0, 0.2) * rb3 + 0.1) / 2.0, 0.0, 1.0);
       
       vec4 lighting = vec4(rb1) * gradient + vec4(rb2) * 0.3;
-      
-      // Output only the glass lighting highlights. The rest is completely transparent.
       fragColor = lighting; 
     } else {
-      // Outside the circle is pure transparent
       fragColor = vec4(0.0);
     }
   }
@@ -93,7 +98,6 @@ export default function LiquidGlassBtn({ direction, onClick }) {
     gl.enableVertexAttribArray(posLoc);
     gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
 
-    // We ripped out iMouse and iChannel0 entirely. 
     const uniforms = {
       resolution : gl.getUniformLocation(prog, 'iResolution'),
       time       : gl.getUniformLocation(prog, 'iTime')
@@ -106,7 +110,6 @@ export default function LiquidGlassBtn({ direction, onClick }) {
       const elapsed = (performance.now() - startRef.current) / 1000;
 
       g.viewport(0, 0, S, S);
-      // Clear with 100% transparent black
       g.clearColor(0.0, 0.0, 0.0, 0.0);
       g.clear(g.COLOR_BUFFER_BIT);
       
@@ -131,7 +134,7 @@ export default function LiquidGlassBtn({ direction, onClick }) {
     >
       <canvas ref={canvasRef} className="lglass-btn__canvas" aria-hidden="true" style={{ pointerEvents: 'none' }} />
       <span className="lglass-btn__arrow" aria-hidden="true" style={{ pointerEvents: 'none' }}>
-        {direction === 'prev' ? '‹' : '›'}
+        {direction === 'prev' ? <PrevIcon /> : <NextIcon />}
       </span>
     </button>
   );
