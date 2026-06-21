@@ -28,17 +28,26 @@
   align-items: center;
   gap: clamp(1.2rem, 3vw, 2.5rem);
   width: min(100%, 720px);
-  padding: 0.6rem 1.5rem 0.6rem 1.5rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 999px;
-  overflow: hidden;
   pointer-events: auto;
   transition: padding 0.3s ease, gap 0.3s ease;
-  
-  background: rgba(15, 15, 15, 0.45);
-  backdrop-filter: blur(12px) saturate(140%);
+  z-index: 1;
+}
+
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: rgba(15, 15, 15, 0.45);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .logo {
@@ -105,23 +114,23 @@
   }
   
   .glass {
-    padding: 0.5rem 1rem 0.5rem 1rem;
+    padding: 0.5rem 1rem;
     gap: 1rem;
+  }
+
+  .links {
+    gap: 0.8rem;
     overflow-x: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
 
-  .glass::-webkit-scrollbar {
+  .links::-webkit-scrollbar {
     display: none;
   }
 
   .logo img {
     height: 1.5rem;
-  }
-
-  .links {
-    gap: 0.8rem;
   }
 
   .links a {
