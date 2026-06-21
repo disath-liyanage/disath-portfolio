@@ -26,7 +26,7 @@ const SKILLS = {
     'Git',
     'GitHub',
     'Figma',
-    'Linux',
+    'OOP',
   ],
   'Soft Skills': [
     'Problem Solving',
@@ -34,7 +34,7 @@ const SKILLS = {
     'Communication',
     'Time Management',
     'Adaptability',
-    'Attention to Detail',
+    'Attention to Details',
   ],
 }
 
@@ -54,6 +54,7 @@ function Skills() {
   const panelsRef = useRef([])
   const btnRefs = useRef([])
   const sectionRef = useRef(null)
+  const timerRef = useRef(null)
 
   useEffect(() => {
     const loadScript = (src) =>
@@ -99,10 +100,16 @@ function Skills() {
           },
         })
       })
+
+      timerRef.current = setInterval(() => {
+        const nextIndex = (activeIndexRef.current + 1) % TABS.length
+        switchTab(nextIndex)
+      }, 3000)
     })
 
     return () => {
       splitsRef.current.forEach((s) => s?.revert?.())
+      if (timerRef.current) clearInterval(timerRef.current)
     }
   }, [])
 
@@ -174,6 +181,14 @@ function Skills() {
     )
   }
 
+  const handleManualClick = (index) => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current)
+      timerRef.current = null
+    }
+    switchTab(index)
+  }
+
   return (
     <section id="skills" className={styles.skills} ref={sectionRef}>
       <div className={styles.tabs}>
@@ -182,7 +197,7 @@ function Skills() {
             key={tab}
             ref={(el) => (btnRefs.current[i] = el)}
             className={`${styles.tab} ${i === 0 ? styles.active : ''}`}
-            onClick={() => switchTab(i)}
+            onClick={() => handleManualClick(i)}
           >
             {tab}
           </button>
