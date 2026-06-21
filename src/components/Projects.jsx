@@ -44,58 +44,66 @@ const ExternalLinkIcon = () => (
 const PROJECTS = [
   {
     id: 1,
-    title: 'Project Alpha',
-    description: 'A full-stack web application with user authentication, real-time updates, and a fully responsive UI built with modern technologies.',
-    tech: ['React', 'Node.js', 'MongoDB', 'Express'],
-    github: 'https://github.com/disath-liyanage/project-alpha',
-    live: 'https://project-alpha.vercel.app',
+    title: 'Nymo.lk',
+    description: 'Leading development of Nymo, a unified apparel e-commerce platform for underrated sellers, including a responsive storefront and vendor dashboard focused on clean UI, smooth navigation, and accessibility.',
+    tech: ['React', 'Next.js', 'Express', 'PostgreSQL'],
+    github: 'https://github.com/isblu/Nymo  ',
+    live: 'https://preview.store.nymo.lk/',
   },
   {
     id: 2,
-    title: 'Portfolio V1',
-    description: 'Previous iteration of my personal portfolio site. Built with vanilla HTML, CSS, and JavaScript without any frameworks.',
-    tech: ['HTML', 'CSS', 'JavaScript'],
-    github: 'https://github.com/disath-liyanage/portfolio-v1',
-    live: null,
+    title: '3D\'s Distributors System',
+    description: 'Full-stack business management platform for a real distribution company, handling role-based access, multi-level invoice approval workflows, rep collections and expense tracking, HR/payroll with EPF/ETF compliance, attendance tracking, loan management, sales targets, and reporting.',
+    tech: ['Next.js 14', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Turborepo'],
+    github: 'https://github.com/disath-liyanage/3ds-system',
+    live: 'https://www.3dsdis.com',
   },
   {
     id: 3,
-    title: 'Task Manager API',
-    description: 'RESTful API built with Spring Boot. Implements full CRUD, JWT authentication, and MySQL persistence.',
-    tech: ['Java', 'Spring Boot', 'MySQL', 'JWT'],
-    github: 'https://github.com/disath-liyanage/task-api',
-    live: null,
+    title: 'Heritage Family Restaurant',
+    description: 'Restaurant website with an authenticated admin dashboard for managing menu items, pricing, and content, built with SEO optimization for local search discoverability.',
+    tech: ['Next.js 14', 'Sanity CMS', 'Tailwind CSS', 'Cloudinary', 'SEO'],
+    github: 'https://github.com/disath-liyanage/heritage-website',
+    live: 'https://heritagefamilyrest.com/',
   },
   {
     id: 4,
-    title: 'Data Viz Dashboard',
-    description: 'Interactive data visualization dashboard pulling from public APIs. Features charts, filters, and CSV export.',
-    tech: ['React', 'D3.js', 'Python', 'FastAPI'],
-    github: 'https://github.com/disath-liyanage/data-viz',
-    live: 'https://data-viz.vercel.app',
-  },
-  {
-    id: 5,
-    title: 'CLI Dev Tool',
-    description: 'A command-line utility that automates repetitive development tasks and scaffolding. Published to npm.',
-    tech: ['Node.js', 'Commander.js'],
-    github: 'https://github.com/disath-liyanage/cli-tool',
+    title: 'LCPMT Website',
+    description: 'SEO-focused website for a Leo Club showcasing completed and upcoming community service projects, with a board member admin panel for content management.',
+    tech: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Supabase'],
+    github: 'https://github.com/disath-liyanage/LCPMT-website',
     live: null,
   },
   {
+    id: 5,
+    title: 'Personal Portfolio Website',
+    description: 'A responsive personal portfolio website showcasing projects, skills, and contact information with structured content and SEO-optimized implementation for better discoverability.',
+    tech: ['React', 'Vite', 'CSS Modules', 'SEO'],
+    github: 'https://github.com/disath-liyanage/disath-portfolio',
+    live: 'https://disathliyanage.com',
+  },
+  {
     id: 6,
-    title: 'Real-time Chat',
-    description: 'Real-time chat application with rooms, private messaging, and file sharing powered by Socket.io and Redis.',
-    tech: ['React', 'Socket.io', 'Node.js', 'Redis'],
-    github: 'https://github.com/disath-liyanage/chat-app',
-    live: 'https://chat-app.vercel.app',
+    title: 'OceaVia',
+    description: 'A responsive awareness platform supporting UN SDG 14 - Life Below Water, with structured content, smooth navigation, and accessibility-focused implementation.',
+    tech: ['Figma', 'UI/UX Design'],
+    github: 'https://github.com/disath-liyanage/OceaVia-Website',
+    live: 'https://disath-liyanage.github.io/OceaVia-Website/',
   },
   {
     id: 7,
-    title: 'ML Classifier',
-    description: 'CNN-based image classification model trained on a custom dataset. Achieved 95% top-1 accuracy on the test split.',
+    title: 'Agri Guide',
+    description: 'An innovative farming assistance app UI/UX concept designed in Figma to help farmers maximize harvest and reduce losses using practical guidance.',
     tech: ['Python', 'TensorFlow', 'Keras', 'NumPy'],
-    github: 'https://github.com/disath-liyanage/ml-classifier',
+    github: null,
+    live: 'https://www.figma.com/proto/OHTMHKOPT4xmmnnuMXiwAF/AgriGuide?node-id=0-1&t=M0fWFkKwpwlsn9mz-1',
+  },
+  {
+    id: 8,
+    title: 'Task Manager',
+    description: 'A Python-based task manager with add, update, and priority organization features (high, medium, low) for efficient daily workload management.',
+    tech: ['Python'],
+    github: 'https://github.com/disath-liyanage/Personal-Task-Manager',
     live: null,
   },
 ];
@@ -152,18 +160,8 @@ export default function Projects() {
   const totalPages = Math.ceil(PROJECTS.length / PER_PAGE);
   const showNav = PROJECTS.length > PER_PAGE;
   
-  const slice = PROJECTS.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
-  
-  const displayItems = [...slice];
-  const templateItem = slice[0] || PROJECTS[0];
-
-  while (displayItems.length < PER_PAGE) {
-    displayItems.push({ 
-      ...templateItem, 
-      id: `ghost-${displayItems.length}`, 
-      isGhost: true 
-    });
-  }
+  const displayItems = PROJECTS.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
+  const measuringItems = PROJECTS.slice(0, PER_PAGE);
 
   const isFirst = page === 0;
   const isLast = page === totalPages - 1;
@@ -189,17 +187,20 @@ export default function Projects() {
 
       <div className="projects-layout">
         
-        <div className={`projects-grid animate-swipe-${direction}`} key={page}>
-          {displayItems.map((proj) => {
-            if (proj.isGhost) {
-              return (
-                <div key={proj.id} className="ghost-card" aria-hidden="true">
-                  <ProjectCard project={proj} />
-                </div>
-              );
-            }
-            return <ProjectCard key={proj.id} project={proj} />;
-          })}
+        <div className="projects-carousel-wrapper">
+          
+          <div className="projects-grid measuring-stick" aria-hidden="true">
+            {measuringItems.map((proj) => (
+              <ProjectCard key={`measure-${proj.id}`} project={proj} />
+            ))}
+          </div>
+
+          <div className={`projects-grid active-layer animate-swipe-${direction}`} key={page}>
+            {displayItems.map((proj) => (
+              <ProjectCard key={proj.id} project={proj} />
+            ))}
+          </div>
+
         </div>
 
         {showNav && (
