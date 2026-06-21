@@ -60,7 +60,7 @@ const PROJECTS = [
   },
   {
     id: 3,
-    title: 'Heritage Family Restaurant',
+    title: 'Heritage Family Restaurant Website',
     description: 'Restaurant website with an authenticated admin dashboard for managing menu items, pricing, and content, built with SEO optimization for local search discoverability.',
     tech: ['Next.js 14', 'Sanity CMS', 'Tailwind CSS', 'Cloudinary', 'SEO'],
     github: 'https://github.com/disath-liyanage/heritage-website',
@@ -70,7 +70,7 @@ const PROJECTS = [
     id: 4,
     title: 'LCPMT Website',
     description: 'SEO-focused website for a Leo Club showcasing completed and upcoming community service projects, with a board member admin panel for content management.',
-    tech: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Supabase'],
+    tech: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Supabase', 'SEO'],
     github: 'https://github.com/disath-liyanage/LCPMT-website',
     live: null,
   },

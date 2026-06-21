@@ -1,8 +1,11 @@
 import styles from './Hero.module.css'
+import MorphFilter from './MorphFilter.jsx'
 
 function Hero() {
   return (
     <section id="home" className={styles.hero}>
+      <MorphFilter />
+
       <h1 className={styles.morphContainer} aria-label="Hey, I'm Disath Liyanage">
         <span className={styles.word} aria-hidden="true">Hey</span>
         <span className={styles.word} aria-hidden="true">I&apos;m</span>

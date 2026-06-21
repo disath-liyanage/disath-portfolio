@@ -100,14 +100,20 @@ x.panel.wideGap {
   .tabs {
     gap: 8px;
   }
+  
   .tab {
     font-size: 13px;
     padding: 8px 15px;
   }
-  .panel.wideGap {
-    column-gap: 2rem;
+  
+  .panel {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+    width: 100%;
   }
-  .panel.narrowGap {
-    column-gap: 0.1rem;
+
+  .skillWrapper:last-child:nth-child(odd) {
+    grid-column: auto;
   }
 }
