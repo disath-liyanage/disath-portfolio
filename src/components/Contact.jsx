@@ -6,7 +6,6 @@ const EMPTY_ERRORS = {
   mobile: '',
   email: '',
   contact: '',
-  message: '',
   form: '',
 }
 
@@ -86,7 +85,6 @@ function Contact() {
     const mobileRaw = String(formData.get('mobile') || '').trim()
     const mobile = mobileRaw.replace(/[^\d]/g, '')
     const email = String(formData.get('email') || '').trim()
-    const message = String(formData.get('message') || '').trim()
 
     setErrors((previous) => {
       const next = { ...previous }
@@ -95,28 +93,10 @@ function Contact() {
         next.firstName = ''
       }
 
-      if (next.message && message) {
-        next.message = ''
-      }
-
-      if (next.contact && (mobile || email)) {
+      if (next.contact || next.mobile || next.email) {
         next.contact = ''
-      }
-
-      if (next.mobile) {
-        if (!mobile && email) {
-          next.mobile = ''
-        } else if (mobile && isValidMobile(mobile)) {
-          next.mobile = ''
-        }
-      }
-
-      if (next.email) {
-        if (!email && mobile) {
-          next.email = ''
-        } else if (email && isValidEmail(email)) {
-          next.email = ''
-        }
+        next.mobile = ''
+        next.email = ''
       }
 
       return next
@@ -143,24 +123,27 @@ function Contact() {
     }
 
     if (!mobile && !email) {
-      nextErrors.contact = 'Please provide at least one contact method: mobile number or email.'
-      nextErrors.mobile = 'Please enter your mobile number or provide an email address.'
-      nextErrors.email = 'Please enter your email address or provide a mobile number.'
+      nextErrors.contact = 'Please provide at least one contact method: Mobile Number or Email.'
+      nextErrors.mobile = 'error'
+      nextErrors.email = 'error'
+    } else {
+      if (mobile && !isValidMobile(mobile)) {
+        nextErrors.mobile = 'error'
+      }
+      if (email && !isValidEmail(email)) {
+        nextErrors.email = 'error'
+      }
+      
+      if (nextErrors.mobile && nextErrors.email) {
+        nextErrors.contact = 'Please enter a valid mobile number and email address.'
+      } else if (nextErrors.mobile) {
+        nextErrors.contact = 'Please enter a valid mobile number using digits only.'
+      } else if (nextErrors.email) {
+        nextErrors.contact = 'Please enter a valid email address (example@domain.com).'
+      }
     }
 
-    if (mobile && !isValidMobile(mobile)) {
-      nextErrors.mobile = 'Please enter a valid mobile number using digits only.'
-    }
-
-    if (email && !isValidEmail(email)) {
-      nextErrors.email = 'Please enter a valid email address (example@domain.com).'
-    }
-
-    if (!message) {
-      nextErrors.message = 'Please enter your message.'
-    }
-
-    if (nextErrors.firstName || nextErrors.mobile || nextErrors.email || nextErrors.contact || nextErrors.message) {
+    if (nextErrors.firstName || nextErrors.mobile || nextErrors.email || nextErrors.contact) {
       setErrors(nextErrors)
       setStatus('idle')
       return
@@ -208,14 +191,9 @@ function Contact() {
 
   return (
     <section id="contact" className={styles.contact}>
+      <h2 className={styles.heading}>Contact Me</h2>
+      
       <form className={styles.form} onSubmit={handleSubmit} onChange={handleFormChange} noValidate>
-        <div className={styles.header}>
-          <h2>Contact Me</h2>
-          <p>
-            If you would like to collaborate, discuss opportunities, or connect, feel free to send me a message.
-          </p>
-        </div>
-
         <div className={styles.fields}>
           <div className={styles.fieldGroup}>
             <label htmlFor="firstName">First Name</label>
@@ -223,6 +201,7 @@ function Contact() {
               id="firstName"
               name="firstName"
               type="text"
+              placeholder="John"
               required
               aria-invalid={errors.firstName ? 'true' : 'false'}
             />
@@ -231,7 +210,7 @@ function Contact() {
 
           <div className={styles.fieldGroup}>
             <label htmlFor="lastName">Last Name (optional)</label>
-            <input id="lastName" name="lastName" type="text" />
+            <input id="lastName" name="lastName" type="text" placeholder="Doe" />
           </div>
 
           <div className={styles.fieldGroup}>
@@ -259,18 +238,22 @@ function Contact() {
                 name="mobile"
                 type="tel"
                 inputMode="numeric"
-                placeholder="771234567"
+                placeholder="77 123 4567"
                 className={styles.mobileInput}
                 aria-invalid={errors.mobile ? 'true' : 'false'}
               />
             </div>
-            {errors.mobile && <p className={styles.fieldError}>{errors.mobile}</p>}
           </div>
 
           <div className={styles.fieldGroup}>
             <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" aria-invalid={errors.email ? 'true' : 'false'} />
-            {errors.email && <p className={styles.fieldError}>{errors.email}</p>}
+            <input 
+              id="email" 
+              name="email" 
+              type="email" 
+              placeholder="john@example.com"
+              aria-invalid={errors.email ? 'true' : 'false'} 
+            />
           </div>
 
           {errors.contact && <p className={`${styles.fieldError} ${styles.contactError}`}>{errors.contact}</p>}
@@ -281,10 +264,8 @@ function Contact() {
               id="message"
               name="message"
               rows="5"
-              required
-              aria-invalid={errors.message ? 'true' : 'false'}
+              placeholder="Hi, I would like to talk about..."
             />
-            {errors.message && <p className={styles.fieldError}>{errors.message}</p>}
           </div>
         </div>
 
