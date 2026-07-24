@@ -2,8 +2,8 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "disathliyanage.com" }],
-      "destination": "https://www.disathliyanage.com/:path*",
+      "has": [{ "type": "host", "value": "disath.dev" }],
+      "destination": "https://www.disath.dev/:path*",
       "permanent": true
     }
   ],

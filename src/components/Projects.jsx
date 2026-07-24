@@ -80,7 +80,7 @@ const PROJECTS = [
     description: 'A responsive personal portfolio website showcasing projects, skills, and contact information with structured content and SEO-optimized implementation for better discoverability.',
     tech: ['React', 'Vite', 'CSS Modules', 'SEO'],
     github: 'https://github.com/disath-liyanage/disath-portfolio',
-    live: 'https://disathliyanage.com',
+    live: 'https://disath.dev',
   },
   {
     id: 6,
