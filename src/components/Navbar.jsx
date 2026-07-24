@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import styles from './Navbar.module.css'
 import logo from '../assets/logo.png'
 
@@ -13,6 +13,9 @@ const LINKS = [
 function Navbar() {
   const [active, setActive] = useState('home')
   const [pastHero, setPastHero] = useState(false)
+  
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 })
+  const linksRef = useRef(null)
 
   useEffect(() => {
     const hero = document.getElementById('home')
@@ -43,24 +46,47 @@ function Navbar() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    const updateIndicator = () => {
+      if (!linksRef.current) return;
+      
+      const activeLink = linksRef.current.querySelector(`[data-id="${active}"]`);
+      if (activeLink) {
+        setIndicatorStyle({
+          left: activeLink.offsetLeft,
+          width: activeLink.offsetWidth,
+          opacity: 1,
+        });
+      }
+    };
+
+    updateIndicator();
+    
+    window.addEventListener('resize', updateIndicator);
+    return () => {
+      window.removeEventListener('resize', updateIndicator);
+    };
+  }, [active]);
+
   return (
     <header className={`${styles.wrap} ${pastHero ? styles.visible : ''}`}>
-      {/* FIX: Removed liquidGlass entirely */}
       <nav className={styles.glass} aria-label="Primary">
         <a href="#home" className={styles.logo} aria-label="Home">
           <img src={logo} alt="Disath Liyanage" width="32" height="32" />
         </a>
 
-        <div className={styles.links}>
+        <div className={styles.links} ref={linksRef}>
           {LINKS.map((link) => (
             <a
               key={link.id}
               href={`#${link.id}`}
+              data-id={link.id}
               className={active === link.id ? styles.active : ''}
             >
               {link.label}
             </a>
           ))}
+          <div className={styles.indicator} style={indicatorStyle} />
         </div>
       </nav>
     </header>
