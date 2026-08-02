@@ -72,7 +72,7 @@ const PROJECTS = [
     description: 'SEO-focused website for a Leo Club showcasing completed and upcoming community service projects, with a board member admin panel for content management.',
     tech: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Supabase', 'SEO'],
     github: 'https://github.com/disath-liyanage/LCPMT-website',
-    live: null,
+    live: 'https://www.titanleos.org',
   },
   {
     id: 5,
@@ -144,7 +144,7 @@ function ProjectCard({ project }) {
               className="proj-btn proj-btn-live"
             >
               <ExternalLinkIcon />
-              Live Demo
+              Preview
             </a>
           )}
         </div>
