@@ -9,7 +9,7 @@ function Hero() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowBackground(true)
-    }, 5500)
+    }, 7500)
 
     return () => clearTimeout(timer)
   }, [])
@@ -17,7 +17,6 @@ function Hero() {
   return (
     <section id="home" className={styles.hero}>
       <InteractiveBackground isActive={showBackground} />
-
       <MorphFilter />
 
       <h1 className={styles.morphContainer} aria-label="Hey, I'm Disath Liyanage">
@@ -28,7 +27,9 @@ function Hero() {
         </span>
       </h1>
 
-      <p className={styles.subtext}>Computer Science Undergraduate</p>
+      <p className={styles.subtext}>
+        Computer Science Undergraduate
+      </p>
 
       <div className={styles.scrollIndicator} aria-hidden="true">
         <div className={styles.mouse}>
