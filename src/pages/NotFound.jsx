@@ -94,11 +94,30 @@ export default function NotFound() {
             textAlign: 'left'
           }}
         >
-          <h1 className="fade-in" style={{ fontSize: 'clamp(3rem, 10vw, 5rem)', fontWeight: 700, margin: 0, lineHeight: 1.1 }}>
+          <h1 
+            className="fade-in" 
+            style={{ 
+              fontSize: 'clamp(3rem, 10vw, 5rem)', 
+              fontWeight: 700, 
+              margin: 0, 
+              lineHeight: 1.1,
+              userSelect: 'none',
+              WebkitUserSelect: 'none'
+            }}
+          >
             Oops!
           </h1>
           
-          <p className="fade-in" style={{ fontSize: 'clamp(1rem, 4vw, 1.8rem)', color: 'var(--text-muted, #ccc)', margin: 0 }}>
+          <p 
+            className="fade-in" 
+            style={{ 
+              fontSize: 'clamp(1rem, 4vw, 1.8rem)', 
+              color: 'var(--text-muted, #ccc)', 
+              margin: 0,
+              userSelect: 'none',
+              WebkitUserSelect: 'none'
+            }}
+          >
             You Seem To Be Lost!
           </p>
 
@@ -119,7 +138,9 @@ export default function NotFound() {
                 padding: '0.8rem 2.2rem',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.2)'
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.2)',
+                userSelect: 'none',
+                WebkitUserSelect: 'none'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)'
@@ -143,7 +164,8 @@ export default function NotFound() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            userSelect: 'none'
+            userSelect: 'none',
+            WebkitUserSelect: 'none'
           }}
         >
           <span 
@@ -151,7 +173,7 @@ export default function NotFound() {
             style={{ 
               position: 'absolute',
               left: '0%',
-              top: '30%',
+              top: '15%',
               fontSize: 'clamp(8rem, 28vw, 22rem)',
               fontWeight: 800, 
               lineHeight: 1,
@@ -166,7 +188,7 @@ export default function NotFound() {
             style={{ 
               position: 'absolute',
               left: '35%',
-              top: '5%',
+              top: '-10%',
               fontSize: 'clamp(8rem, 28vw, 22rem)',
               fontWeight: 800, 
               lineHeight: 1,
@@ -181,7 +203,7 @@ export default function NotFound() {
             style={{ 
               position: 'absolute',
               right: '0%', 
-              top: '55%',
+              top: '40%',
               fontSize: 'clamp(8rem, 28vw, 22rem)', 
               fontWeight: 800, 
               lineHeight: 1,
