@@ -182,3 +182,16 @@
     display: none;
   }
 }
+
+.subtext {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  opacity: 0;
+  animation: fade-up 6.4s ease-out 4.8s forwards;
+  
+  user-select: none;
+  -webkit-user-select: none;
+}
