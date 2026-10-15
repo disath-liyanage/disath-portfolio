@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import GlassFilter from './components/GlassFilter'
@@ -10,7 +11,8 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CV from './pages/CV'
 import NotFound from './pages/NotFound'
-import { Analytics } from "@vercel/analytics/react";
+import SplashScreen from './components/SplashScreen'
+import { Analytics } from "@vercel/analytics/react"
 
 function Home() {
   return (
@@ -31,8 +33,10 @@ function Home() {
 }
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true)
   return (
     <BrowserRouter>
+      {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
       <Routes>
         <Route path="/" element={<Home />} />
         

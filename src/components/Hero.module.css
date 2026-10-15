@@ -35,16 +35,16 @@
 }
 
 .word:nth-of-type(1) {
-  animation-delay: 0s;
+  animation-delay: 2s; 
 }
 
 .word:nth-of-type(2) {
-  animation-delay: 2s;
+  animation-delay: 4s; 
 }
 
 .finalWord {
   animation: morph-stop 6s ease-in-out forwards;
-  animation-delay: 4s;
+  animation-delay: 6s; 
 }
 
 @keyframes rotate-words {
@@ -190,8 +190,20 @@
   letter-spacing: 0.2em;
   color: var(--text-muted);
   opacity: 0;
-  animation: fade-up 6.4s ease-out 4.8s forwards;
-  
+  animation: fade-up 6.4s ease-out 6.8s forwards;
   user-select: none;
   -webkit-user-select: none;
+}
+
+.scrollIndicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fade-in 1s ease-out 8s forwards; 
 }
