@@ -4,39 +4,41 @@ import styles from './Skills.module.css'
 const SKILLS = {
   Frontend: [
     'React',
+    'Next.js',
+    'TypeScript',
     'JavaScript',
-    'React Native',
-    'HTML',
-    'CSS',
-    'Tailwind CSS',
-    'Vite',
+    'HTML & CSS',
     'GSAP',
+    'Vite',
+    'Tailwind CSS',
   ],
-  Backend: [
+
+  'Backend & Data': [
     'Node.js',
     'Express',
-    'Python',
     'REST APIs',
-    'MySQL',
-    'MongoDB',
-  ],
-  General: [
+    'Supabase',
+    'PostgreSQL',
+    'Python',
     'Java',
-    'JavaScript',
-    'Git',
-    'GitHub',
+  ],
+  'Mobile & Desktop': [
+    'Swift',
+    'SwiftUI',
+    'SwiftData',
+    'React Native',
     'Figma',
-    'OOP',
   ],
-  'Soft Skills': [
-    'Problem Solving',
-    'Teamwork',
-    'Communication',
-    'Time Management',
-    'Adaptability',
-    'Attention to Details',
+  'Tools & Services': [
+    'Git & GitHub',
+    'Vercel',
+    'SEO',
+    'Google Places API',
+    'Turborepo',
+    'Resend',
+    'Cloudflare Email Routing',
   ],
-}
+};
 
 const TABS = Object.keys(SKILLS)
 
