@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import GlassFilter from './components/GlassFilter'
 import MorphFilter from './components/MorphFilter'
@@ -7,9 +9,12 @@ import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import { Analytics } from "@vercel/analytics/react";
+import CV from './pages/CV'
+import NotFound from './pages/NotFound'
+import SplashScreen from './components/SplashScreen'
+import { Analytics } from "@vercel/analytics/react"
 
-function App() {
+function Home() {
   return (
     <>
       <GlassFilter />
@@ -23,8 +28,24 @@ function App() {
         <Contact />
       </main>
       <Footer />
-      <Analytics />
     </>
+  )
+}
+
+function App() {
+  const [showSplash, setShowSplash] = useState(true)
+  return (
+    <BrowserRouter>
+      {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        
+        <Route path="/cv" element={<CV />} />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Analytics />
+    </BrowserRouter>
   )
 }
 
