@@ -1,5 +1,6 @@
 .about {
   height: 240vh;
+  height: 240svh;
   position: relative;
 }
 
@@ -7,6 +8,8 @@
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100svh;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,13 +23,29 @@
   line-height: 1.55;
   text-align: center;
   margin: 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .word {
-  display: inline;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
   color: var(--text);
   font-weight: 400;
   transition: opacity 0.15s linear;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.word::after {
+  content: attr(data-text);
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: 700;
+  pointer-events: none;
 }
 
 .wordActive {
@@ -36,6 +55,7 @@
 @media (max-width: 640px) {
   .about {
     height: 220vh;
+    height: 220svh;
   }
 
   .sticky {
