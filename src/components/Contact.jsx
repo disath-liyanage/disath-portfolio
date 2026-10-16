@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import styles from './Contact.module.css'
 
 const EMPTY_ERRORS = {
@@ -77,6 +77,16 @@ function Contact() {
   const [status, setStatus] = useState('idle')
   const [errors, setErrors] = useState(EMPTY_ERRORS)
   const [countryCode, setCountryCode] = useState('+94')
+  
+  const successTimerRef = useRef(null)
+
+  useEffect(() => {
+    return () => {
+      if (successTimerRef.current) {
+        clearTimeout(successTimerRef.current)
+      }
+    }
+  }, [])
 
   function handleFormChange(event) {
     const form = event.currentTarget
@@ -103,8 +113,26 @@ function Contact() {
     })
   }
 
+  function handleInputEnter(event, nextFieldId) {
+    if (event.key === 'Enter' && !event.metaKey && !event.ctrlKey) {
+      event.preventDefault()
+      document.getElementById(nextFieldId)?.focus()
+    }
+  }
+
+  function handleFormKeyDown(event) {
+    if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+      event.preventDefault()
+      event.currentTarget.requestSubmit()
+    }
+  }
+
   async function handleSubmit(event) {
     event.preventDefault()
+
+    if (successTimerRef.current) {
+      clearTimeout(successTimerRef.current)
+    }
 
     const form = event.currentTarget
     const formData = new FormData(form)
@@ -184,6 +212,11 @@ function Contact() {
       form.reset()
       setErrors(EMPTY_ERRORS)
       setStatus('success')
+      
+      successTimerRef.current = setTimeout(() => {
+        setStatus('idle')
+      }, 6000)
+
     } catch {
       setStatus('error')
     }
@@ -193,7 +226,13 @@ function Contact() {
     <section id="contact" className={styles.contact}>
       <h2 className={styles.heading}>Contact Me</h2>
       
-      <form className={styles.form} onSubmit={handleSubmit} onChange={handleFormChange} noValidate>
+      <form 
+        className={styles.form} 
+        onSubmit={handleSubmit} 
+        onChange={handleFormChange}
+        onKeyDown={handleFormKeyDown}
+        noValidate
+      >
         <div className={styles.fields}>
           <div className={styles.fieldGroup}>
             <label htmlFor="firstName">First Name</label>
@@ -201,16 +240,23 @@ function Contact() {
               id="firstName"
               name="firstName"
               type="text"
-              placeholder="John"
+              placeholder="Your First Name"
               required
               aria-invalid={errors.firstName ? 'true' : 'false'}
+              onKeyDown={(e) => handleInputEnter(e, 'lastName')}
             />
             {errors.firstName && <p className={styles.fieldError}>{errors.firstName}</p>}
           </div>
 
           <div className={styles.fieldGroup}>
             <label htmlFor="lastName">Last Name (optional)</label>
-            <input id="lastName" name="lastName" type="text" placeholder="Doe" />
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              placeholder="Your Last Name"
+              onKeyDown={(e) => handleInputEnter(e, 'mobile')}
+            />
           </div>
 
           <div className={styles.fieldGroup}>
@@ -238,21 +284,23 @@ function Contact() {
                 name="mobile"
                 type="tel"
                 inputMode="numeric"
-                placeholder="77 123 4567"
+                placeholder={countryCode === '+94' ? '77 123 4567' : 'Your number here'}
                 className={styles.mobileInput}
                 aria-invalid={errors.mobile ? 'true' : 'false'}
+                onKeyDown={(e) => handleInputEnter(e, 'email')}
               />
             </div>
           </div>
 
           <div className={styles.fieldGroup}>
             <label htmlFor="email">Email</label>
-            <input 
+            <input
               id="email" 
               name="email" 
               type="email" 
-              placeholder="john@example.com"
-              aria-invalid={errors.email ? 'true' : 'false'} 
+              placeholder="Your Email Address"
+              aria-invalid={errors.email ? 'true' : 'false'}
+              onKeyDown={(e) => handleInputEnter(e, 'message')}
             />
           </div>
 
@@ -264,7 +312,7 @@ function Contact() {
               id="message"
               name="message"
               rows="5"
-              placeholder="Hi, I would like to talk about..."
+              placeholder="Hi, I would like to talk about&#x2026;"
             />
           </div>
         </div>
