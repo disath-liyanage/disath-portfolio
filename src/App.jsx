@@ -11,6 +11,8 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CV from './pages/CV'
 import NotFound from './pages/NotFound'
+import DistributionSystem from './pages/projects/3ds-System'
+import Lensy from './pages/projects/Lensy'
 import SplashScreen from './components/SplashScreen'
 import { Analytics } from "@vercel/analytics/react"
 
@@ -39,9 +41,9 @@ function App() {
       {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
       <Routes>
         <Route path="/" element={<Home />} />
-        
         <Route path="/cv" element={<CV />} />
-
+        <Route path="/projects/3ds-system" element={<DistributionSystem />} />
+        <Route path="/projects/lensy" element={<Lensy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Analytics />
