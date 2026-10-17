@@ -284,7 +284,7 @@ function Contact() {
                 name="mobile"
                 type="tel"
                 inputMode="numeric"
-                placeholder={countryCode === '+94' ? '77 123 4567' : 'Your number here'}
+                placeholder={countryCode === '+94' ? '77 123 4567' : 'Your Number'}
                 className={styles.mobileInput}
                 aria-invalid={errors.mobile ? 'true' : 'false'}
                 onKeyDown={(e) => handleInputEnter(e, 'email')}
