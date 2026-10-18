@@ -382,7 +382,7 @@ export default function CV() {
                 style={{ 
                   marginBottom: '2rem',
                   boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)', 
-                  borderRadius: '4px', 
+                  borderRadius: '4px',
                   overflow: 'hidden' 
                 }}
               >
