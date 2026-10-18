@@ -45,6 +45,27 @@ export default function CV() {
   }
 
   useEffect(() => {
+    const prevTitle = document.title
+    const meta = document.querySelector('meta[name="description"]')
+    const prevDesc = meta?.getAttribute('content')
+    const canonical = document.querySelector('link[rel="canonical"]')
+    const prevCanonical = canonical?.getAttribute('href')
+
+    document.title = 'CV | Disath Liyanage'
+    meta?.setAttribute(
+      'content',
+      'Curriculum vitae of Disath Liyanage, Computer Science undergraduate and full-stack developer. View it online or download the PDF.'
+    )
+    canonical?.setAttribute('href', 'https://www.disath.dev/cv')
+
+    return () => {
+      document.title = prevTitle
+      if (meta && prevDesc) meta.setAttribute('content', prevDesc)
+      if (canonical && prevCanonical) canonical.setAttribute('href', prevCanonical)
+    }
+  }, [])
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

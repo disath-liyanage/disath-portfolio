@@ -154,13 +154,17 @@ export default function Lensy() {
     const prevTitle = document.title
     const meta = document.querySelector('meta[name="description"]')
     const prevDesc = meta?.getAttribute('content')
+    const canonical = document.querySelector('link[rel="canonical"]')
+    const prevCanonical = canonical?.getAttribute('href')
 
     document.title = 'Lensy | Disath Liyanage'
     meta?.setAttribute('content', 'A native Apple app for tracking how long you wear your contact lenses.')
+    canonical?.setAttribute('href', 'https://www.disath.dev/projects/lensy')
 
     return () => {
       document.title = prevTitle
       if (meta && prevDesc) meta.setAttribute('content', prevDesc)
+      if (canonical && prevCanonical) canonical.setAttribute('href', prevCanonical)
     }
   }, [])
 

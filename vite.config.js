@@ -17,7 +17,7 @@ export default defineConfig({
     },
 
     Sitemap({
-      hostname: "https://disath.dev",
+      hostname: "https://www.disath.dev",
     }),
   ],
 });
