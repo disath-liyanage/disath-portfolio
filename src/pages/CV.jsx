@@ -225,8 +225,8 @@ export default function CV() {
 
         <div style={{ zIndex: 2 }}>
           <a
-            href="/cv.pdf"
-            download="Disath_Liyanage_CV.pdf"
+            href="/CV.pdf"
+            download="Disath-Liyanage-CV.pdf"
             style={{
               ...pillContainerStyle,
               gap: '0.5rem',
@@ -281,7 +281,7 @@ export default function CV() {
           }}
         >
           {(isSidebarOpen || isMobile) && (
-            <Document file="/cv.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+            <Document file="/CV.pdf" onLoadSuccess={onDocumentLoadSuccess}>
               {Array.from(new Array(numPages), (el, index) => (
                 <div 
                   key={`thumb_${index + 1}`}
@@ -345,7 +345,7 @@ export default function CV() {
           }}
         >
           <Document 
-            file="/cv.pdf" 
+            file="/CV.pdf" 
             onLoadSuccess={onDocumentLoadSuccess}
             loading={
               <div style={{ color: 'var(--text-muted)', fontFamily: 'Outfit', marginTop: '20vh' }}>
