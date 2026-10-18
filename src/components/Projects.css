@@ -279,6 +279,8 @@
   flex-direction: column;
   gap: 3.5rem;
   box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .proj-page_back {
@@ -725,8 +727,8 @@
 .shots_btn {
   position: absolute;
   z-index: 3;
-  top: 25%;
-  top: calc(min(560px, 85cqw) * 0.285 - 20px);
+  top: 28%;
+  margin-top: -20px;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
     rgba(20, 20, 26, 0.86);
@@ -749,7 +751,7 @@
 
 .shots_bar {
   position: relative;
-  width: 140px;
+  width: 115px;
   height: 16px;
   margin: 1rem auto 0;
   cursor: pointer;
@@ -1006,6 +1008,8 @@
   gap: 0.6rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+    user-select: none;
+  -webkit-user-select: none;
 }
 
 .proj-next_label {
@@ -1061,8 +1065,7 @@
   .shots_btn {
     width: 36px;
     height: 36px;
-    top: 25%;
-    top: calc(min(560px, 85cqw) * 0.285 - 18px);
+    margin-top: -18px;
   }
   .shots_btn-prev { left: 8px; }
   .shots_btn-next { right: 8px; }
@@ -1086,4 +1089,18 @@
     width: 60px;
     height: 40px;
   }
+}
+
+.proj-next-prev {
+  align-items: flex-start;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.proj-next-prev .proj-next_btn {
+  padding: 0.6rem 1.3rem 0.6rem 1.15rem;
+}
+
+.proj-next-prev .proj-next_btn:hover svg {
+  transform: translateX(-3px);
 }

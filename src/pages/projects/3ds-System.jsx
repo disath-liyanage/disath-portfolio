@@ -661,8 +661,7 @@ function Lightbox({ shots, startIndex, onClose }) {
 }
 
 const SLIDE_MS = 500
-
-function ShotSlider({ shots }) {
+export function ShotSlider({ shots, size = [3024, 1724] }) {
   const trackRef = useRef(null)
   const barRef = useRef(null)
   const thumbRef = useRef(null)
@@ -783,6 +782,10 @@ function ShotSlider({ shots }) {
   const single = shots.length === 1
   const nav = !single && m.scrollable
 
+  const [fw, fh] = size
+  const frameRatio = `${fw} / ${fh}`
+  const btnTop = `calc(min(560px, 85cqw) * ${(fh / fw / 2).toFixed(4)})`
+
   useEffect(() => {
     update()
   }, [nav, update])
@@ -841,6 +844,7 @@ function ShotSlider({ shots }) {
           <button
             type="button"
             className="frost_btn shots_btn shots_btn-prev"
+            style={{ top: btnTop }}
             onClick={() => go(-1)}
             disabled={!m.canPrev}
             aria-label="Previous photo"
@@ -865,6 +869,7 @@ function ShotSlider({ shots }) {
               <button
                 type="button"
                 className="shots_open"
+                style={{ aspectRatio: frameRatio }}
                 onClick={() => setOpenAt(i)}
                 aria-label={`Enlarge: ${s.caption}`}
               >
@@ -882,6 +887,7 @@ function ShotSlider({ shots }) {
           <button
             type="button"
             className="frost_btn shots_btn shots_btn-next"
+            style={{ top: btnTop }}
             onClick={() => go(1)}
             disabled={!m.canNext}
             aria-label="Next photo"
