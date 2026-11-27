@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import GlassFilter from '../../components/GlassFilter'
 import MorphFilter from '../../components/MorphFilter'
 import Footer from '../../components/Footer'
+import { usePageSeo } from '../../seo/usePageSeo'
 import '../../components/Projects.css'
 
 const dashboard = '/images/erp-system/general/dashboard.webp'
@@ -1065,23 +1066,7 @@ export default function ErpSystem() {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [])
 
-  useEffect(() => {
-    const prevTitle = document.title
-    const meta = document.querySelector('meta[name="description"]')
-    const prevDesc = meta?.getAttribute('content')
-    const canonical = document.querySelector('link[rel="canonical"]')
-    const prevCanonical = canonical?.getAttribute('href')
-
-    document.title = 'Business Management System | Disath Liyanage'
-    meta?.setAttribute('content', 'A configurable sales, collections and payroll ERP system for businesses, available in four editions.')
-    canonical?.setAttribute('href', 'https://www.disath.dev/projects/erp-system')
-
-    return () => {
-      document.title = prevTitle
-      if (meta && prevDesc) meta.setAttribute('content', prevDesc)
-      if (canonical && prevCanonical) canonical.setAttribute('href', prevCanonical)
-    }
-  }, [])
+  usePageSeo('/projects/erp-system')
 
   const scrollToHomeSection = (id, focusField = null) => (e) => {
     e.preventDefault()

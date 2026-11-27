@@ -16,6 +16,7 @@ import {
 
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
+import { usePageSeo } from '../seo/usePageSeo'
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -44,26 +45,7 @@ export default function CV() {
     setNumPages(numPages)
   }
 
-  useEffect(() => {
-    const prevTitle = document.title
-    const meta = document.querySelector('meta[name="description"]')
-    const prevDesc = meta?.getAttribute('content')
-    const canonical = document.querySelector('link[rel="canonical"]')
-    const prevCanonical = canonical?.getAttribute('href')
-
-    document.title = 'CV | Disath Liyanage'
-    meta?.setAttribute(
-      'content',
-      'Curriculum vitae of Disath Liyanage, Computer Science undergraduate and full-stack developer. View it online or download the PDF.'
-    )
-    canonical?.setAttribute('href', 'https://www.disath.dev/cv')
-
-    return () => {
-      document.title = prevTitle
-      if (meta && prevDesc) meta.setAttribute('content', prevDesc)
-      if (canonical && prevCanonical) canonical.setAttribute('href', prevCanonical)
-    }
-  }, [])
+  usePageSeo('/cv')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -222,8 +204,12 @@ export default function CV() {
               padding: '0.5rem 0'
             }}
           >
-            <HomeIcon size={16} />
-            {!isMobile && "Go back to Home"}
+            <img 
+              src="/icon.svg" 
+              alt="Home" 
+              style={{ width: '20px', height: '20px', objectFit: 'contain', display: 'block' }} 
+            />
+            {!isMobile && "Return Home"}
           </button>
         </div>
 
