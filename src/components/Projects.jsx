@@ -55,7 +55,7 @@ const PROJECTS = [
       role: 'Full-stack developer',
       status: 'Live for 6+ months',
       stats: ['4 Editions', '15+ Users', '50+ Invoices/day'],
-      overview: 'A business management platform that runs the whole sales cycle: invoice requests and approvals, out-of-stock handling through supplier orders, customer collections with cheque reminders, automatic payroll with commissions and incentives, expenses and profit tracking, a product photo gallery for use in front of customers, and configurable reports. It ships in four editions, so each business gets only what it needs, and access is controlled by roles that can be customised per system.',
+      overview: 'A business management platform that runs the whole sales cycle: invoice requests and approvals, out-of-stock handling through supplier orders, customer collections with cheque reminders, automatic payroll with commissions and incentives, expenses & profit tracking, a product photo gallery for use in front of customers, and configurable reports. It ships in four editions, so each business gets only what it needs, and access is controlled by roles that can be customised per system.',
       sections: [
         {
           heading: 'Sales dashboard',
