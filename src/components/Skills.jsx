@@ -1,5 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { SplitText } from 'gsap/SplitText'
 import styles from './Skills.module.css'
+
+gsap.registerPlugin(SplitText)
 
 const SKILLS = {
   Frontend: [
@@ -57,68 +61,11 @@ function Skills() {
   const btnRefs = useRef([])
   const sectionRef = useRef(null)
   const timerRef = useRef(null)
+  const switchTabRef = useRef(null)
 
-  useEffect(() => {
-    const loadScript = (src) =>
-      new Promise((resolve, reject) => {
-        if (document.querySelector(`script[src="${src}"]`)) {
-          resolve()
-          return
-        }
-        const s = document.createElement('script')
-        s.src = src
-        s.onload = resolve
-        s.onerror = reject
-        document.head.appendChild(s)
-      })
-
-    Promise.all([
-      loadScript('https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js'),
-      loadScript('https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js'),
-    ]).then(() => {
-      const { gsap, SplitText } = window
-      if (!gsap || !SplitText) return
-
-      gsap.registerPlugin(SplitText)
-
-      const panels = panelsRef.current
-      const activeIndex = activeIndexRef.current
-
-      splitsRef.current = panels.map((el, i) => {
-        const textNodes = el.querySelectorAll('.' + styles.skillText)
-
-        return SplitText.create(textNodes, {
-          type: 'lines',
-          mask: 'lines',
-          linesClass: styles.splitLine,
-          autoSplit: true,
-          onSplit(self) {
-            gsap.set(el, { opacity: 1 })
-            if (i === activeIndex) {
-              gsap.set(self.lines, { yPercent: 0, opacity: 1 })
-            } else {
-              gsap.set(self.lines, { yPercent: Y_OFFSET, opacity: 1 })
-            }
-          },
-        })
-      })
-
-      timerRef.current = setInterval(() => {
-        const nextIndex = (activeIndexRef.current + 1) % TABS.length
-        switchTab(nextIndex)
-      }, 3000)
-    })
-
-    return () => {
-      splitsRef.current.forEach((s) => s?.revert?.())
-      if (timerRef.current) clearInterval(timerRef.current)
-    }
-  }, [])
-
-  const switchTab = (nextIndex) => {
-    const { gsap } = window
-    if (!gsap) return
-    if (nextIndex === activeIndexRef.current) return
+  const switchTab = useCallback((nextIndex) => {
+    const prevIndex = activeIndexRef.current
+    if (nextIndex === prevIndex) return
 
     if (isAnimatingRef.current) {
       queuedIndexRef.current = nextIndex
@@ -132,14 +79,28 @@ function Skills() {
       btn.classList.toggle(styles.active, i === nextIndex)
     })
 
-    const currentLines = splitsRef.current[activeIndexRef.current]?.lines
+    const prevPanel = panelsRef.current[prevIndex]
+    const nextPanel = panelsRef.current[nextIndex]
+    const currentLines = splitsRef.current[prevIndex]?.lines
     const nextLines = splitsRef.current[nextIndex]?.lines
 
+    panelsRef.current.forEach((panel, i) => {
+      if (!panel) return
+      if (i !== prevIndex && i !== nextIndex) {
+        gsap.set(panel, { opacity: 0, pointerEvents: 'none' })
+      }
+    })
+
     if (!currentLines || !nextLines) {
+      if (prevPanel) gsap.set(prevPanel, { opacity: 0, pointerEvents: 'none' })
+      if (nextPanel) gsap.set(nextPanel, { opacity: 1, pointerEvents: 'auto' })
       activeIndexRef.current = nextIndex
       isAnimatingRef.current = false
       return
     }
+
+    if (prevPanel) gsap.set(prevPanel, { opacity: 1, pointerEvents: 'none' })
+    if (nextPanel) gsap.set(nextPanel, { opacity: 1, pointerEvents: 'auto' })
 
     gsap.killTweensOf(currentLines)
     gsap.killTweensOf(nextLines)
@@ -150,6 +111,7 @@ function Skills() {
 
     tlRef.current = gsap.timeline({
       onComplete: () => {
+        if (prevPanel) gsap.set(prevPanel, { opacity: 0, pointerEvents: 'none' })
         activeIndexRef.current = nextIndex
         isAnimatingRef.current = false
 
@@ -159,7 +121,7 @@ function Skills() {
         ) {
           const q = queuedIndexRef.current
           queuedIndexRef.current = null
-          switchTab(q)
+          switchTabRef.current?.(q)
         }
       },
     })
@@ -181,7 +143,63 @@ function Skills() {
       },
       OVERLAP
     )
-  }
+  }, [])
+
+  useEffect(() => {
+    switchTabRef.current = switchTab
+    let cancelled = false
+
+    const init = async () => {
+      if (document.fonts?.ready) {
+        await document.fonts.ready
+      }
+      if (cancelled) return
+
+      const panels = panelsRef.current
+
+      splitsRef.current = panels.map((el, i) => {
+        if (!el) return null
+        const textNodes = el.querySelectorAll('.' + styles.skillText)
+
+        return SplitText.create(textNodes, {
+          type: 'lines',
+          mask: 'lines',
+          linesClass: styles.splitLine,
+          autoSplit: true,
+          onSplit(self) {
+            const isActive = i === activeIndexRef.current
+            gsap.set(el, {
+              opacity: isActive ? 1 : 0,
+              pointerEvents: isActive ? 'auto' : 'none',
+            })
+            gsap.set(self.lines, {
+              yPercent: isActive ? 0 : Y_OFFSET,
+              opacity: 1,
+            })
+          },
+        })
+      })
+
+      timerRef.current = setInterval(() => {
+        if (document.hidden) return
+        const nextIndex = (activeIndexRef.current + 1) % TABS.length
+        switchTab(nextIndex)
+      }, 3000)
+    }
+
+    init()
+
+    return () => {
+      cancelled = true
+      tlRef.current?.kill()
+      splitsRef.current.forEach((s) => s?.revert?.())
+      splitsRef.current = []
+      if (timerRef.current) {
+        clearInterval(timerRef.current)
+        timerRef.current = null
+      }
+    }
+  }, [switchTab])
 
   const handleManualClick = (index) => {
     if (timerRef.current) {

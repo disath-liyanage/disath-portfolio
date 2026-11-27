@@ -67,7 +67,7 @@
   column-gap: clamp(0.5rem, 2vw, 2rem); 
 }
 
-x.panel.wideGap {
+.panel.wideGap {
   column-gap: clamp(4rem, 15vw, 12rem); 
 }
 
