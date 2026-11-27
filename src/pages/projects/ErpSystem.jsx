@@ -6,83 +6,85 @@ import MorphFilter from '../../components/MorphFilter'
 import Footer from '../../components/Footer'
 import '../../components/Projects.css'
 
-const dashboard = '/images/3ds-system/general/dashboard.png'
+const dashboard = '/images/erp-system/general/dashboard.png'
 const dashboard_shot = (caption, src = dashboard, desc = '') => ({ src, caption, desc })
 
-const notifications = '/images/3ds-system/general/notifications.png'
+const dashboard_light = '/images/erp-system/general/dashboard-light.png'
+
+const notifications = '/images/erp-system/general/notifications.png'
 const notifications_shot = (caption, src = notifications, desc = '') => ({ src, caption, desc })
 
-const expenses = '/images/3ds-system/general/expenses.png'
+const expenses = '/images/erp-system/general/expenses.png'
 const expenses_shot = (caption, src = expenses, desc = '') => ({ src, caption, desc })
 
-const reports = '/images/3ds-system/general/Reports.png'
+const reports = '/images/erp-system/general/Reports.png'
 const reports_shot = (caption, src = reports, desc = '') => ({ src, caption, desc })
 
-const salary = '/images/3ds-system/general/salary.png'
+const salary = '/images/erp-system/general/salary.png'
 const salary_shot = (caption, src = salary, desc = '') => ({ src, caption, desc })
 
-const workers = '/images/3ds-system/general/workers.png'
+const workers = '/images/erp-system/general/workers.png'
 const workers_shot = (caption, src = workers, desc = '') => ({ src, caption, desc })
 
 
-const inv_approved = '/images/3ds-system/invoices/approved.png'
+const inv_approved = '/images/erp-system/invoices/approved.png'
 const inv_approved_shot = (caption, src = inv_approved, desc = '') => ({ src, caption, desc })
 
-const inv_editnapproved = '/images/3ds-system/invoices/Edit-&-approve.png'
+const inv_editnapproved = '/images/erp-system/invoices/Edit-&-approve.png'
 const inv_editnapproved_shot = (caption, src = inv_editnapproved, desc = '') => ({ src, caption, desc })
 
-const inv_pending = '/images/3ds-system/invoices/pending.png'
+const inv_pending = '/images/erp-system/invoices/pending.png'
 const inv_pending_shot = (caption, src = inv_pending, desc = '') => ({ src, caption, desc })
 
-const inv_rejected = '/images/3ds-system/invoices/rejected.png'
+const inv_rejected = '/images/erp-system/invoices/rejected.png'
 const inv_rejected_shot = (caption, src = inv_rejected, desc = '') => ({ src, caption, desc })
 
-const inv_gallery = '/images/3ds-system/invoices/gallery.png'
+const inv_gallery = '/images/erp-system/invoices/gallery.png'
 const inv_gallery_shot = (caption, src = inv_gallery, desc = '') => ({ src, caption, desc })
 
 
-const collections = '/images/3ds-system/collections/table.png'
+const collections = '/images/erp-system/collections/table.png'
 const collections_shot = (caption, src = collections, desc = '') => ({ src, caption, desc })
 
-const collection_session = '/images/3ds-system/collections/session.png'
+const collection_session = '/images/erp-system/collections/session.png'
 const collection_session_shot = (caption, src = collection_session, desc = '') => ({ src, caption, desc })
 
 
-const grn = '/images/3ds-system/grn/table.png'
+const grn = '/images/erp-system/grn/table.png'
 const grn_shot = (caption, src = grn, desc = '') => ({ src, caption, desc })
 
-const grn_details = '/images/3ds-system/grn/details.png'
+const grn_details = '/images/erp-system/grn/details.png'
 const grn_details_shot = (caption, src = grn_details, desc = '') => ({ src, caption, desc })
 
 
-const products = '/images/3ds-system/products/table.png'
+const products = '/images/erp-system/products/table.png'
 const products_shot = (caption, src = products, desc = '') => ({ src, caption, desc })
 
-const product_details = '/images/3ds-system/products/details.png'
+const product_details = '/images/erp-system/products/details.png'
 const product_details_shot = (caption, src = product_details, desc = '') => ({ src, caption, desc })
 
 
-const customers = '/images/3ds-system/customers/table.png'
+const customers = '/images/erp-system/customers/table.png'
 const customers_shot = (caption, src = customers, desc = '') => ({ src, caption, desc })
 
-const customer_details = '/images/3ds-system/customers/details.png'
+const customer_details = '/images/erp-system/customers/details.png'
 const cusomer_details_shot = (caption, src = customer_details, desc = '') => ({ src, caption, desc })
 
 
-const attendance = '/images/3ds-system/attendance/attendance.png'
+const attendance = '/images/erp-system/attendance/attendance.png'
 const attendance_shot = (caption, src = attendance, desc = '') => ({ src, caption, desc })
 
-const advanceloan = '/images/3ds-system/attendance/advancenloans.png'
+const advanceloan = '/images/erp-system/attendance/advancenloans.png'
 const advanceloan_shot = (caption, src = advanceloan, desc = '') => ({ src, caption, desc })
 
 const stats = [
-  { value: '~10', label: 'Workers' },
+  { value: '4', label: 'Editions' },
   { value: '5-6', label: 'Users' },
   { value: '10-30', label: 'Invoices per day' },
   { value: '6+ mo', label: 'In production' },
 ]
 
-const roles = ['Admins', 'Managers', 'Sales reps']
+const roles = ['Admins', 'Managers', 'Sales reps', 'Cashiers', 'Custom roles']
 
 const tech = [
   { name: 'Next.js 14', tag: 'Framework', mark: 'N', icon: 'nextdotjs', role: 'App routing and server rendering' },
@@ -94,16 +96,26 @@ const tech = [
 ]
 
 const sections = [
-  {
+    {
     title: 'Dashboard',
     groups: [
       {
         text: 'Managers see performance at a glance without opening a report.',
         bullets: [
+          'Bar graph of the last 30 days of sales, so the trend is visible straight away',
+          'Top 5 customers and top 5 products',
           "Animated progress bars showing each sales rep's sales against their target",
           "Cards for today's orders, today's collections and low stock",
         ],
         shots: [dashboard_shot('Sales dashboard', dashboard)],
+      },
+      {
+        heading: 'Light and dark themes',
+        bullets: ['Every page works in both themes, switchable by the user'],
+        shots: [
+          dashboard_shot('Dark theme', dashboard),
+          dashboard_shot('Light theme', dashboard_light),
+        ],
       },
     ],
   },
@@ -401,6 +413,13 @@ const ArrowIcon = ({ dir }) => (
   <svg width="16" height="16" viewBox="0 0 24 24" {...svgProps}>
     <line x1={dir === 'right' ? 4 : 20} y1="12" x2={dir === 'right' ? 19 : 5} y2="12" />
     <polyline points={dir === 'right' ? '13 6 19 12 13 18' : '11 6 5 12 11 18'} />
+  </svg>
+)
+
+export const MailIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" {...svgProps}>
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <polyline points="22 6 12 13 2 6" />
   </svg>
 )
 
@@ -935,7 +954,7 @@ function Group({ g }) {
   )
 }
 
-export default function DistributionSystem() {
+export default function ErpSystem() {
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -946,9 +965,9 @@ export default function DistributionSystem() {
     const canonical = document.querySelector('link[rel="canonical"]')
     const prevCanonical = canonical?.getAttribute('href')
 
-    document.title = "3D's Distributors System | Disath Liyanage"
-    meta?.setAttribute('content', "A full sales, collections and payroll system for a distribution company.")
-    canonical?.setAttribute('href', 'https://www.disath.dev/projects/3ds-system')
+    document.title = 'Business Management System | Disath Liyanage'
+    meta?.setAttribute('content', 'A configurable sales, collections and payroll ERP system for businesses, available in four editions.')
+    canonical?.setAttribute('href', 'https://www.disath.dev/projects/erp-system')
 
     return () => {
       document.title = prevTitle
@@ -957,20 +976,9 @@ export default function DistributionSystem() {
     }
   }, [])
 
-  const backToProjects = (e) => {
+  const scrollToHomeSection = (id, focusField = null) => (e) => {
     e.preventDefault()
-    navigate('/')
-    let tries = 0
-    const scrollToProjects = () => {
-      const el = document.getElementById('projects')
-      if (el) {
-        el.scrollIntoView({ block: 'start' })
-      } else if (tries < 40) {
-        tries += 1
-        setTimeout(scrollToProjects, 50)
-      }
-    }
-    setTimeout(scrollToProjects, 50)
+    navigate('/', { state: { scrollTo: id, focusField } })
   }
 
   return (
@@ -979,14 +987,14 @@ export default function DistributionSystem() {
       <MorphFilter />
 
       <main className="proj-page">
-        <Link to="/#projects" className="proj-page_back" onClick={backToProjects}>
+        <Link to="/#projects" className="proj-page_back" onClick={scrollToHomeSection('projects')}>
           <ArrowIcon dir="left" /> Back to All projects
         </Link>
 
         <header className="proj-page_header">
-          <h1>3D's Distributors System</h1>
+          <h1>Business Management System</h1>
           <p className="proj-page_tagline">
-            A full sales, collections and payroll system for a distribution company.
+            A configurable sales, collections & payroll ERP system for businesses.
           </p>
           <p className="proj-page_meta">Full-stack developer</p>
 
@@ -1003,7 +1011,7 @@ export default function DistributionSystem() {
         <section className="proj-sec">
           <h2 className="proj-sec_title">Overview</h2>
           <p className="proj-sec_text">
-            A business management platform built for 3D's Distributors (PVT) Ltd. It runs the whole sales cycle: invoice requests and approvals, out-of-stock handling through supplier orders, customer collections with cheque reminders, automatic payroll with commissions and incentives, expenses and profit tracking, a product photo gallery for use in front of customers, and configurable reports.
+            A business management platform that runs the whole sales cycle: invoice requests and approvals, out-of-stock handling through supplier orders, customer collections with cheque reminders, automatic payroll with commissions and incentives, expenses and profit tracking, a product photo gallery for use in front of customers, and configurable reports. It ships in four editions, so each business gets only what it needs, and access is controlled by roles that can be customised per system.
           </p>
           <div className="proj-roles">
             <span className="proj-roles_label">Built for</span>
@@ -1043,27 +1051,57 @@ export default function DistributionSystem() {
         ))}
 
         <section className="proj-sec">
-          <h2 className="proj-sec_title">Variants</h2>
-          <p className="proj-sec_text">The core was reused for two other clients.</p>
-          <div className="proj-variants">
-            <div className="proj-variants_item">
-              <h3>Lite version</h3>
-              <p>Managers and admins only, no sales-rep invoice requests, no payroll or attendance.</p>
+          <h2 className="proj-sec_title">Editions</h2>
+          <div className="proj-groups proj-groups-grid">
+            <div className="proj-group">
+              <h3 className="proj-group_title">Full edition</h3>
+              <ul className="proj-sec_list">
+                <li>Sales-rep invoice requests, approvals and supplier orders</li>
+                <li>Customer collections with cheque reminders, payroll and attendance</li>
+                <li>Expenses, profit tracking and configurable reports</li>
+                <li>Built for admins, managers, sales reps and cashiers</li>
+              </ul>
             </div>
-            <div className="proj-variants_item">
-              <h3>Manufacturing version</h3>
-              <p>
-                For a manufacturing and distribution company manages the full sales-rep workflow, tracking distributed items, finished goods, and the raw materials used to produce them. Suppliers are recorded for distributed items and raw materials, and all three can be invoiced to the same customer.
-              </p>
+            <div className="proj-group">
+              <h3 className="proj-group_title">Lite edition</h3>
+              <ul className="proj-sec_list">
+                <li>Managers and admins only</li>
+                <li>No sales-rep invoice requests</li>
+                <li>No payroll and no attendance</li>
+              </ul>
+            </div>
+            <div className="proj-group">
+              <h3 className="proj-group_title">Manufacturing edition</h3>
+              <ul className="proj-sec_list">
+                <li>Keeps the full sales-rep workflow for companies that manufacture and distribute</li>
+                <li>Tracks distributed items, finished goods and the raw materials used to produce them</li>
+                <li>Records suppliers for distributed items and raw materials, with all three invoiceable to the same customer</li>
+              </ul>
+            </div>
+            <div className="proj-group">
+              <h3 className="proj-group_title">Cashier edition</h3>
+              <ul className="proj-sec_list">
+                <li>Built around managers and cashiers</li>
+                <li>Cashiers submit collection session requests with the bank and cheque number</li>
+                <li>Managers accept or reject each collection session request</li>
+              </ul>
             </div>
           </div>
         </section>
 
         <nav className="proj-next" aria-label="Next project">
-          <span className="proj-next_label">Next project</span>
-          <Link to="/projects/lensy" className="proj-next_btn">
-            Lensy <ArrowIcon dir="right" />
-          </Link>
+          <div className="proj-next_group">
+            <span className="proj-next_label">Interested?</span>
+            <Link to="/#contact" className="proj-next_btn proj-next_btn-contact" onClick={scrollToHomeSection('contact', 'firstName')}>
+              <MailIcon /> Get in touch
+            </Link>
+          </div>
+          <div className="proj-next_group">
+            <span className="proj-next_label">Next project</span>
+            <Link to="/projects/lensy" className="proj-next_btn">
+              Lensy <ArrowIcon dir="right" />
+            </Link>
+          </div>
         </nav>
       </main>
 

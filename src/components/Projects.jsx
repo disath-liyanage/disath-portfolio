@@ -44,18 +44,18 @@ const ExternalLinkIcon = () => (
 const PROJECTS = [
   {
     id: 1,
-    slug: '3ds-system',
-    title: '3D\'s Distributors System',
-    description: 'Business management platform for a live distribution company: invoice approvals, collections, auto-generated payroll, stock, expenses and reports, with role-based access.',
+    slug: 'erp-system',
+    title: 'Business Management System',
+    description: 'Configurable ERP and business management platform: invoice approvals, collections, auto-generated payroll, stock, expenses and reports, with role-based access.',
     tech: ['Next.js 14', 'TypeScript', 'Supabase', 'Turborepo', 'Tailwind CSS'],
-    github: 'https://github.com/disath-liyanage/3ds-system',
-    live: 'https://www.3dsdis.com',
+    github: null,
+    live: null,
     details: {
-      tagline: 'A full sales, collections and payroll system for a distribution company, in production for 6+ months.',
+      tagline: 'A configurable sales, collections and payroll ERP system for businesses.',
       role: 'Full-stack developer',
       status: 'Live for 6+ months',
-      stats: ['~10 workers', '5-6 users', '10-30 invoices/day'],
-      overview: 'A business management platform built for 3D\'s Distributors (PVT) Ltd. It handles the whole sales cycle for admins, managers, sales reps and drivers: invoice requests and approvals, out-of-stock handling through supplier orders, customer collections with cheque reminders, automatic payroll with commissions and incentives, expenses and profit tracking, a product photo gallery for use in front of customers, and configurable reports. It has been running in production for over six months.',
+      stats: ['4 editions', '5-6 users', '10-30 invoices/day'],
+      overview: 'A business management platform that runs the whole sales cycle: invoice requests and approvals, out-of-stock handling through supplier orders, customer collections with cheque reminders, automatic payroll with commissions and incentives, expenses and profit tracking, a product photo gallery for use in front of customers, and configurable reports. It ships in four editions, so each business gets only what it needs, and access is controlled by roles that can be customised per system.',
       sections: [
         {
           heading: 'Sales dashboard',
