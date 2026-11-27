@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, useNavigate } from 'react-router-dom'
 import GlassFilter from '../../components/GlassFilter'
@@ -6,81 +6,81 @@ import MorphFilter from '../../components/MorphFilter'
 import Footer from '../../components/Footer'
 import '../../components/Projects.css'
 
-const dashboard = '/images/erp-system/general/dashboard.png'
+const dashboard = '/images/erp-system/general/dashboard.webp'
 const dashboard_shot = (caption, src = dashboard, desc = '') => ({ src, caption, desc })
 
-const dashboard_light = '/images/erp-system/general/dashboard-light.png'
+const dashboard_light = '/images/erp-system/general/dashboard-light.webp'
 
-const notifications = '/images/erp-system/general/notifications.png'
+const notifications = '/images/erp-system/general/notifications.webp'
 const notifications_shot = (caption, src = notifications, desc = '') => ({ src, caption, desc })
 
-const expenses = '/images/erp-system/general/expenses.png'
+const expenses = '/images/erp-system/general/expenses.webp'
 const expenses_shot = (caption, src = expenses, desc = '') => ({ src, caption, desc })
 
-const reports = '/images/erp-system/general/Reports.png'
+const reports = '/images/erp-system/general/reports.webp'
 const reports_shot = (caption, src = reports, desc = '') => ({ src, caption, desc })
 
-const salary = '/images/erp-system/general/salary.png'
+const salary = '/images/erp-system/general/salary.webp'
 const salary_shot = (caption, src = salary, desc = '') => ({ src, caption, desc })
 
-const workers = '/images/erp-system/general/workers.png'
+const workers = '/images/erp-system/general/workers.webp'
 const workers_shot = (caption, src = workers, desc = '') => ({ src, caption, desc })
 
-const users = '/images/erp-system/general/users.png'
-const users_shot = (caption, src = workers, desc = '') => ({ src, caption, desc })
+const users = '/images/erp-system/general/users.webp'
+const users_shot = (caption, src = users, desc = '') => ({ src, caption, desc })
 
 
-const inv_approved = '/images/erp-system/invoices/approved.png'
+const inv_approved = '/images/erp-system/invoices/approved.webp'
 const inv_approved_shot = (caption, src = inv_approved, desc = '') => ({ src, caption, desc })
 
-const inv_editnapproved = '/images/erp-system/invoices/Edit-&-approve.png'
+const inv_editnapproved = '/images/erp-system/invoices/edit-&-approve.webp'
 const inv_editnapproved_shot = (caption, src = inv_editnapproved, desc = '') => ({ src, caption, desc })
 
-const inv_pending = '/images/erp-system/invoices/pending.png'
+const inv_pending = '/images/erp-system/invoices/pending.webp'
 const inv_pending_shot = (caption, src = inv_pending, desc = '') => ({ src, caption, desc })
 
-const inv_rejected = '/images/erp-system/invoices/rejected.png'
+const inv_rejected = '/images/erp-system/invoices/rejected.webp'
 const inv_rejected_shot = (caption, src = inv_rejected, desc = '') => ({ src, caption, desc })
 
-const inv_gallery = '/images/erp-system/invoices/gallery.png'
+const inv_gallery = '/images/erp-system/invoices/gallery.webp'
 const inv_gallery_shot = (caption, src = inv_gallery, desc = '') => ({ src, caption, desc })
 
 
-const collections = '/images/erp-system/collections/table.png'
+const collections = '/images/erp-system/collections/table.webp'
 const collections_shot = (caption, src = collections, desc = '') => ({ src, caption, desc })
 
-const collection_session = '/images/erp-system/collections/session.png'
+const collection_session = '/images/erp-system/collections/session.webp'
 const collection_session_shot = (caption, src = collection_session, desc = '') => ({ src, caption, desc })
 
-const collection_session_expenses = '/images/erp-system/collections/expenses.png'
+const collection_session_expenses = '/images/erp-system/collections/expenses.webp'
 const collection_session_expenses_shot = (caption, src = collection_session_expenses, desc = '') => ({ src, caption, desc })
 
 
-const grn = '/images/erp-system/grn/table.png'
+const grn = '/images/erp-system/grn/table.webp'
 const grn_shot = (caption, src = grn, desc = '') => ({ src, caption, desc })
 
-const grn_details = '/images/erp-system/grn/details.png'
+const grn_details = '/images/erp-system/grn/details.webp'
 const grn_details_shot = (caption, src = grn_details, desc = '') => ({ src, caption, desc })
 
 
-const products = '/images/erp-system/products/table.png'
+const products = '/images/erp-system/products/table.webp'
 const products_shot = (caption, src = products, desc = '') => ({ src, caption, desc })
 
-const product_details = '/images/erp-system/products/details.png'
+const product_details = '/images/erp-system/products/details.webp'
 const product_details_shot = (caption, src = product_details, desc = '') => ({ src, caption, desc })
 
 
-const customers = '/images/erp-system/customers/table.png'
+const customers = '/images/erp-system/customers/table.webp'
 const customers_shot = (caption, src = customers, desc = '') => ({ src, caption, desc })
 
-const customer_details = '/images/erp-system/customers/details.png'
+const customer_details = '/images/erp-system/customers/details.webp'
 const cusomer_details_shot = (caption, src = customer_details, desc = '') => ({ src, caption, desc })
 
 
-const attendance = '/images/erp-system/attendance/attendance.png'
+const attendance = '/images/erp-system/attendance/attendance.webp'
 const attendance_shot = (caption, src = attendance, desc = '') => ({ src, caption, desc })
 
-const advanceloan = '/images/erp-system/attendance/advancenloans.png'
+const advanceloan = '/images/erp-system/attendance/advancenloans.webp'
 const advanceloan_shot = (caption, src = advanceloan, desc = '') => ({ src, caption, desc })
 
 const stats = [
@@ -450,6 +450,84 @@ function TechIcon({ icon, mark }) {
 const MAX_ZOOM = 4
 const ZOOM_STEP = 0.5
 
+const preloaded = new Set()
+const thumbSrc = (src) => src.replace(/\.webp$/, '-thumb.webp')
+const preloadImage = (src) => {
+  if (!src || preloaded.has(src)) return
+  preloaded.add(src)
+  const img = new Image()
+  img.decoding = 'async'
+  img.src = src
+}
+
+export function useScrollReveal(containerRef) {
+  useEffect(() => {
+    const root = containerRef.current
+    if (!root) return
+
+    const targets = Array.from(root.querySelectorAll('[data-reveal]'))
+    if (!targets.length) return
+
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+
+    targets.forEach((el) => {
+      const items = []
+      Array.from(el.children).forEach((child) => {
+        if (child.matches('.proj-sec_title, .proj-group_title, .proj-sec_text, .shots, .proj-variants_item, .proj-next_group')) {
+          items.push(child)
+        } else if (child.matches('.proj-sec_list')) {
+          items.push(...Array.from(child.children))
+        } else if (child.matches('.proj-groups-grid')) {
+          items.push(...Array.from(child.children))
+        }
+      })
+      items.forEach((item, idx) => {
+        item.classList.add('proj-reveal-item')
+        item.style.setProperty('--reveal-i', String(Math.min(idx, 6)))
+      })
+    })
+
+    if (reduced || typeof IntersectionObserver === 'undefined') {
+      targets.forEach((el) => el.classList.add('is-revealed'))
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.06, rootMargin: '0px 0px -32px 0px' }
+    )
+
+    targets.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [containerRef])
+}
+
+function ShotImage({ src, alt, eager }) {
+  return (
+    <img
+      ref={(el) => {
+        if (el?.complete && el.naturalWidth > 0) {
+          el.classList.add('is-loaded')
+        }
+      }}
+      src={src}
+      alt={alt}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchPriority={eager ? 'high' : undefined}
+      decoding="async"
+      draggable="false"
+      onLoad={(e) => e.currentTarget.classList.add('is-loaded')}
+    />
+  )
+}
+
 function Lightbox({ shots, startIndex, onClose }) {
   const [index, setIndex] = useState(startIndex)
   const [zoom, setZoom] = useState(1)
@@ -505,7 +583,9 @@ function Lightbox({ shots, startIndex, onClose }) {
     setZoom(1)
     setPan({ x: 0, y: 0 })
     activeThumb.current?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' })
-  }, [index])
+    preloadImage(shots[index - 1]?.src)
+    preloadImage(shots[index + 1]?.src)
+  }, [index, shots])
 
   const onPointerDown = (e) => {
     if (e.target.closest('button')) return
@@ -679,7 +759,7 @@ function Lightbox({ shots, startIndex, onClose }) {
                 aria-label={`Show photo ${i + 1}: ${t.caption}`}
                 aria-current={i === index}
               >
-                <img src={t.src} alt="" draggable="false" />
+                <img src={t.thumb || thumbSrc(t.src)} alt="" draggable="false" />
               </button>
             ))}
           </div>
@@ -691,7 +771,7 @@ function Lightbox({ shots, startIndex, onClose }) {
 }
 
 const SLIDE_MS = 500
-export function ShotSlider({ shots, size = [3024, 1724] }) {
+export function ShotSlider({ shots, size = [3024, 1724], eager = false }) {
   const trackRef = useRef(null)
   const barRef = useRef(null)
   const thumbRef = useRef(null)
@@ -905,13 +985,16 @@ export function ShotSlider({ shots, size = [3024, 1724] }) {
                 type="button"
                 className="shots_open"
                 style={{ aspectRatio: frameRatio }}
+                onMouseEnter={() => preloadImage(s.src)}
+                onFocus={() => preloadImage(s.src)}
                 onClick={(e) => {
                   e.currentTarget.blur()
+                  preloadImage(s.src)
                   setOpenAt(i)
                 }}
                 aria-label={`Enlarge: ${s.caption}`}
               >
-                <img src={s.src} alt={s.caption} loading="lazy" decoding="async" draggable="false" />
+                <ShotImage src={s.thumb || thumbSrc(s.src)} alt={s.caption} eager={eager && i < 2} />
                 <span className="frost_btn shots_expand" aria-hidden="true">
                   <ExpandIcon />
                 </span>
@@ -956,9 +1039,9 @@ export function ShotSlider({ shots, size = [3024, 1724] }) {
   )
 }
 
-function Group({ g }) {
+function Group({ g, eager = false, reveal = false }) {
   return (
-    <div className="proj-group">
+    <div className="proj-group" data-reveal={reveal ? '' : undefined}>
       {g.heading && <h3 className="proj-group_title">{g.heading}</h3>}
       {g.text && <p className="proj-sec_text">{g.text}</p>}
       {g.bullets && (
@@ -968,16 +1051,21 @@ function Group({ g }) {
           ))}
         </ul>
       )}
-      {g.shots && <ShotSlider shots={g.shots} />}
+      {g.shots && <ShotSlider shots={g.shots} eager={eager} />}
     </div>
   )
 }
 
 export default function ErpSystem() {
   const navigate = useNavigate()
+  const pageRef = useRef(null)
+  useScrollReveal(pageRef)
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [])
 
   useEffect(() => {
-    window.scrollTo(0, 0)
     const prevTitle = document.title
     const meta = document.querySelector('meta[name="description"]')
     const prevDesc = meta?.getAttribute('content')
@@ -1005,7 +1093,7 @@ export default function ErpSystem() {
       <GlassFilter />
       <MorphFilter />
 
-      <main className="proj-page">
+      <main className="proj-page" ref={pageRef}>
         <Link to="/#projects" className="proj-page_back" onClick={scrollToHomeSection('projects')}>
           <ArrowIcon dir="left" /> Back to All projects
         </Link>
@@ -1030,7 +1118,7 @@ export default function ErpSystem() {
         <section className="proj-sec">
           <h2 className="proj-sec_title">Overview</h2>
           <p className="proj-sec_text">
-            A business management platform that runs the whole sales cycle: invoice requests and approvals, out-of-stock handling through supplier orders, customer collections with cheque reminders, automatic payroll with commissions and incentives, expenses and profit tracking, a product photo gallery for use in front of customers, and configurable reports. It ships in four editions, so each business gets only what it needs, and access is controlled by roles that can be customised per system.
+            A business management platform that runs the whole sales cycle: invoice requests and approvals, out-of-stock handling through supplier orders, customer collections with cheque reminders, automatic payroll with commissions and incentives, expenses & profit tracking, a product photo gallery for use in front of customers, and configurable reports. It ships in four editions, so each business gets only what it needs, and access is controlled by roles that can be customised per system.
           </p>
           <div className="proj-roles">
             <span className="proj-roles_label">Built for</span>
@@ -1058,18 +1146,18 @@ export default function ErpSystem() {
           </div>
         </section>
 
-        {sections.map((s) => (
-          <section key={s.title} className="proj-sec">
+        {sections.map((s, si) => (
+          <section key={s.title} className="proj-sec" data-reveal="">
             <h2 className="proj-sec_title">{s.title}</h2>
             <div className={s.grid ? 'proj-groups proj-groups-grid' : 'proj-groups'}>
               {s.groups.map((g, i) => (
-                <Group key={g.heading || i} g={g} />
+                <Group key={g.heading || i} g={g} eager={si === 0} reveal={!s.grid} />
               ))}
             </div>
           </section>
         ))}
 
-        <section className="proj-sec">
+        <section className="proj-sec" data-reveal="">
           <h2 className="proj-sec_title">Editions</h2>
           <div className="proj-groups proj-groups-grid">
             <div className="proj-group">
@@ -1108,7 +1196,7 @@ export default function ErpSystem() {
           </div>
         </section>
 
-        <nav className="proj-next" aria-label="Next project">
+        <nav className="proj-next" aria-label="Next project" data-reveal="">
           <div className="proj-next_group">
             <span className="proj-next_label">Interested?</span>
             <Link to="/#contact" className="proj-next_btn proj-next_btn-contact" onClick={scrollToHomeSection('contact', 'firstName')}>

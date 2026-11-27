@@ -1,24 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import GlassFilter from '../../components/GlassFilter'
 import MorphFilter from '../../components/MorphFilter'
 import Footer from '../../components/Footer'
-import { ShotSlider, MailIcon } from './ErpSystem'
+import { ShotSlider, MailIcon, useScrollReveal } from './ErpSystem'
 import '../../components/Projects.css'
 
-const timer = '/images/Lensy/timer.png'
+const timer = '/images/Lensy/timer.webp'
 const timer_shot = (caption, src = timer, desc = '') => ({ src, caption, desc })
 
-const history = '/images/Lensy/history.png'
+const history = '/images/Lensy/history.webp'
 const history_shot = (caption, src = history, desc = '') => ({ src, caption, desc })
 
-const reports = '/images/Lensy/reports.png'
+const reports = '/images/Lensy/reports.webp'
 const reports_shot = (caption, src = reports, desc = '') => ({ src, caption, desc })
 
-const siri = '/images/Lensy/siri.png'
+const siri = '/images/Lensy/siri.webp'
 const siri_shot = (caption, src = siri, desc = '') => ({ src, caption, desc })
 
-const shortcuts = '/images/Lensy/shortcuts.png'
+const shortcuts = '/images/Lensy/shortcuts.webp'
 const shortcuts_shot = (caption, src = shortcuts, desc = '') => ({ src, caption, desc })
 
 const LENSY_SIZE = [2655, 1724]
@@ -148,9 +148,14 @@ function TechIcon({ icon, glyph, mark }) {
 
 export default function Lensy() {
   const navigate = useNavigate()
+  const pageRef = useRef(null)
+  useScrollReveal(pageRef)
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [])
 
   useEffect(() => {
-    window.scrollTo(0, 0)
     const prevTitle = document.title
     const meta = document.querySelector('meta[name="description"]')
     const prevDesc = meta?.getAttribute('content')
@@ -178,7 +183,7 @@ export default function Lensy() {
       <GlassFilter />
       <MorphFilter />
 
-      <main className="proj-page">
+      <main className="proj-page" ref={pageRef}>
         <Link to="/#projects" className="proj-page_back" onClick={scrollToHomeSection('projects')}>
           <ArrowIcon dir="left" /> Back to All projects
         </Link>
@@ -225,11 +230,11 @@ export default function Lensy() {
           </div>
         </section>
 
-        <section className="proj-sec">
+        <section className="proj-sec" data-reveal="">
           <h2 className="proj-sec_title">Features</h2>
           <div className="proj-groups">
-            {features.map((f) => (
-              <div key={f.heading} className="proj-group">
+            {features.map((f, i) => (
+              <div key={f.heading} className="proj-group" data-reveal="">
                 <h3 className="proj-group_title">{f.heading}</h3>
                 {f.text && <p className="proj-sec_text">{f.text}</p>}
                 {f.bullets && (
@@ -239,15 +244,15 @@ export default function Lensy() {
                     ))}
                   </ul>
                 )}
-                {f.shots && <ShotSlider shots={f.shots} size={LENSY_SIZE} />}
+                {f.shots && <ShotSlider shots={f.shots} size={LENSY_SIZE} eager={i === 0} />}
               </div>
             ))}
           </div>
         </section>
 
-        <section className="proj-sec">
+        <section className="proj-sec" data-reveal="">
           <h2 className="proj-sec_title">Platforms</h2>
-          <div className="proj-variants">
+          <div className="proj-variants" data-reveal="">
             <div className="proj-variants_item">
               <h3>macOS</h3>
               <p>Complete, built with SwiftUI, including the menu bar item.</p>
@@ -259,7 +264,7 @@ export default function Lensy() {
           </div>
         </section>
 
-        <nav className="proj-next proj-next-prev" aria-label="Previous project">
+        <nav className="proj-next proj-next-prev" aria-label="Previous project" data-reveal="">
           <div className="proj-next_group">
             <span className="proj-next_label">Previous project</span>
             <Link to="/projects/erp-system" className="proj-next_btn">
