@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import GlassFilter from '../../components/GlassFilter'
 import MorphFilter from '../../components/MorphFilter'
 import Footer from '../../components/Footer'
-import { ShotSlider } from './3ds-System'
+import { ShotSlider, MailIcon } from './ErpSystem'
 import '../../components/Projects.css'
 
 const timer = '/images/Lensy/timer.png'
@@ -168,20 +168,9 @@ export default function Lensy() {
     }
   }, [])
 
-  const backToProjects = (e) => {
+  const scrollToHomeSection = (id, focusField = null) => (e) => {
     e.preventDefault()
-    navigate('/')
-    let tries = 0
-    const scrollToProjects = () => {
-      const el = document.getElementById('projects')
-      if (el) {
-        el.scrollIntoView({ block: 'start' })
-      } else if (tries < 40) {
-        tries += 1
-        setTimeout(scrollToProjects, 50)
-      }
-    }
-    setTimeout(scrollToProjects, 50)
+    navigate('/', { state: { scrollTo: id, focusField } })
   }
 
   return (
@@ -190,7 +179,7 @@ export default function Lensy() {
       <MorphFilter />
 
       <main className="proj-page">
-        <Link to="/#projects" className="proj-page_back" onClick={backToProjects}>
+        <Link to="/#projects" className="proj-page_back" onClick={scrollToHomeSection('projects')}>
           <ArrowIcon dir="left" /> Back to All projects
         </Link>
 
@@ -271,10 +260,18 @@ export default function Lensy() {
         </section>
 
         <nav className="proj-next proj-next-prev" aria-label="Previous project">
-          <span className="proj-next_label">Previous project</span>
-          <Link to="/projects/3ds-system" className="proj-next_btn">
-            <ArrowIcon dir="left" /> 3D's Distributors System
-          </Link>
+          <div className="proj-next_group">
+            <span className="proj-next_label">Previous project</span>
+            <Link to="/projects/erp-system" className="proj-next_btn">
+              <ArrowIcon dir="left" /> Business Management System
+            </Link>
+          </div>
+          <div className="proj-next_group">
+            <span className="proj-next_label">Interested?</span>
+            <Link to="/#contact" className="proj-next_btn proj-next_btn-contact" onClick={scrollToHomeSection('contact', 'firstName')}>
+              <MailIcon /> Get in touch
+            </Link>
+          </div>
         </nav>
       </main>
 
