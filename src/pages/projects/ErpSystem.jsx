@@ -26,6 +26,9 @@ const salary_shot = (caption, src = salary, desc = '') => ({ src, caption, desc 
 const workers = '/images/erp-system/general/workers.png'
 const workers_shot = (caption, src = workers, desc = '') => ({ src, caption, desc })
 
+const users = '/images/erp-system/general/users.png'
+const users_shot = (caption, src = workers, desc = '') => ({ src, caption, desc })
+
 
 const inv_approved = '/images/erp-system/invoices/approved.png'
 const inv_approved_shot = (caption, src = inv_approved, desc = '') => ({ src, caption, desc })
@@ -48,6 +51,9 @@ const collections_shot = (caption, src = collections, desc = '') => ({ src, capt
 
 const collection_session = '/images/erp-system/collections/session.png'
 const collection_session_shot = (caption, src = collection_session, desc = '') => ({ src, caption, desc })
+
+const collection_session_expenses = '/images/erp-system/collections/expenses.png'
+const collection_session_expenses_shot = (caption, src = collection_session_expenses, desc = '') => ({ src, caption, desc })
 
 
 const grn = '/images/erp-system/grn/table.png'
@@ -79,12 +85,12 @@ const advanceloan_shot = (caption, src = advanceloan, desc = '') => ({ src, capt
 
 const stats = [
   { value: '4', label: 'Editions' },
-  { value: '5-6', label: 'Users' },
-  { value: '10-30', label: 'Invoices per day' },
+  { value: '15+', label: 'Users Combined' },
+  { value: '50+', label: 'Invoices per day' },
   { value: '6+ mo', label: 'In production' },
 ]
 
-const roles = ['Admins', 'Managers', 'Sales reps', 'Cashiers', 'Custom roles']
+const roles = ['Admins', 'Managers', 'Sales reps', 'Cashiers', 'Custom Roles']
 
 const tech = [
   { name: 'Next.js 14', tag: 'Framework', mark: 'N', icon: 'nextdotjs', role: 'App routing and server rendering' },
@@ -107,7 +113,6 @@ const sections = [
           "Animated progress bars showing each sales rep's sales against their target",
           "Cards for today's orders, today's collections and low stock",
         ],
-        shots: [dashboard_shot('Sales dashboard', dashboard)],
       },
       {
         heading: 'Light and dark themes',
@@ -123,7 +128,7 @@ const sections = [
     title: 'Invoices',
     groups: [
       {
-        heading: 'Requesting an invoice',
+        heading: 'Requesting an Invoice',
         bullets: [
           'Sales reps request invoices for their customers',
           'Managers and admins are notified as soon as a request comes in',
@@ -148,25 +153,25 @@ const sections = [
           'Out-of-stock quantities are highlighted in a separate colour so managers and admins spot them immediately',
         ],
         shots: [
-          inv_editnapproved_shot('Editing & Accepting an invoice', inv_editnapproved, 'Products can be edited before approving. The send to supplier button is visible here.'),
+          inv_editnapproved_shot('Editing & Accepting an Invoice', inv_editnapproved, 'Products can be edited before approving. The send to supplier button is visible here.'),
         ],
       },
       {
-        heading: 'Rejected invoices',
+        heading: 'Rejected Invoices',
         bullets: ['Rejected requests are kept, and the sales rep is notified'],
-        shots: [inv_rejected_shot('Rejected invoice', inv_rejected)],
+        shots: [inv_rejected_shot('Rejected Invoice', inv_rejected)],
       },
       {
-        heading: 'Approved invoices',
+        heading: 'Approved Invoices',
         bullets: [
           'The outstanding table, discount and free quantity columns only appear when they are needed, so a simple invoice stays clean',
         ],
         shots: [
-          inv_approved_shot('Approved invoice', inv_approved, 'Outstanding, discount and free quantity columns only show up when there is a need for them.'),
+          inv_approved_shot('Approved Invoice', inv_approved, 'Outstanding, discount and free quantity columns only show up when there is a need for them.'),
         ],
       },
       {
-        heading: 'Product gallery and cart',
+        heading: 'Product Gallery & Cart',
         text: 'Built for reps in front of a customer.',
         bullets: [
           'A gallery button on the invoice page opens the gallery while items are being added, with the items already on the invoice loaded into the cart',
@@ -174,7 +179,7 @@ const sections = [
           'Reps browse the gallery, add quantities, then check out the cart',
           'Checkout returns to the invoice page, where the customer is selected and items can still be edited or removed',
         ],
-        shots: [inv_gallery_shot('Product gallery', inv_gallery)],
+        shots: [inv_gallery_shot('Product Gallery', inv_gallery)],
       },
     ],
   },
@@ -182,15 +187,15 @@ const sections = [
     title: 'Collections',
     groups: [
       {
-        heading: 'Sales rep collections',
+        heading: 'Sales Rep Collections',
         bullets: [
           'Only sales reps and managers can add collection entries',
           'In the field, reps record every collection, cash or cheque, and their expenses on the go',
         ],
-        shots: [collections_shot('Recording collections in the field', collections)],
+        shots: [collections_shot('Recording Collections in the field', collections)],
       },
       {
-        heading: 'Approving collections',
+        heading: 'Approving Collections',
         bullets: [
           'Back at the office, the rep hands the cash in hand to the manager',
           'The manager opens approve collection, which shows the cheque amount, cash collected, total expenses and the cash in hand right now',
@@ -198,15 +203,15 @@ const sections = [
         ],
       },
       {
-        heading: 'Driver collections',
+        heading: 'Driver Collections',
         bullets: [
           'Driver entries are made by the manager, who selects the worker and the collection session',
           "The session holds every collection and expense the driver recorded, so the manager can cross-check the driver's cash in hand against it",
         ],
-        shots: [collection_session_shot('Driver collection session', collection_session)],
+        shots: [collection_session_shot('Driver Collection Session', collection_session), collection_session_expenses_shot('Driver Session Expenses Section', collection_session_expenses)],
       },
       {
-        heading: 'Collection commission',
+        heading: 'Collection Commission',
         bullets: [
           'Either way, the worker earns a collection commission that is calculated automatically into the salary slip',
         ],
@@ -214,14 +219,14 @@ const sections = [
     ],
   },
   {
-    title: 'Goods received notes (GRN)',
+    title: 'Goods Received Notes (GRN)',
     groups: [
       {
         bullets: [
           'Only admins and managers can add received notes',
           'Sales reps can view the added received notes',
         ],
-        shots: [grn_shot('All Received notes', grn), grn_details_shot('Received note Details', grn_details)],
+        shots: [grn_shot('All Received Notes', grn), grn_details_shot('Received Note Details', grn_details)],
       },
     ],
   },
@@ -267,21 +272,21 @@ const sections = [
     title: 'Attendance',
     groups: [
       {
-        heading: 'Attendance calendar',
+        heading: 'Attendance Calendar',
         bullets: [
           'Managers log attendance for each user',
           'A calendar of the current month shows cheque deposit dates on their day, with holidays, Saturdays and Sundays highlighted',
         ],
-        shots: [attendance_shot('Attendance calendar', attendance)],
+        shots: [attendance_shot('Attendance Calendar', attendance)],
       },
       {
-        heading: 'Advances and loans',
+        heading: 'Advances & Loans',
         bullets: [
           'Select a user, an amount, and whether it is a loan or an advance',
           'Loans are spread over a number of months chosen by the manager',
           'A table at the bottom lists who received advances or loans this month, with the total',
         ],
-        shots: [advanceloan_shot('Advances and loans', advanceloan)],
+        shots: [advanceloan_shot('Advances & Loans', advanceloan)],
       },
     ],
   },
@@ -359,7 +364,7 @@ const sections = [
           'Managers and admins only need a name, username and password, with no worker assigned',
           'Role-based access across the whole system',
         ],
-        shots: [workers_shot('Workers and users', workers)],
+        shots: [workers_shot('Workers', workers), users_shot('Users', users)],
       },
     ],
   },
@@ -453,6 +458,7 @@ function Lightbox({ shots, startIndex, onClose }) {
   const stageRef = useRef(null)
   const imgRef = useRef(null)
   const activeThumb = useRef(null)
+  const wheelTimer = useRef(0)
   const drag = useRef({ active: false, moved: false, onImg: false, x: 0, y: 0, px: 0, py: 0 })
 
   const last = shots.length - 1
@@ -489,6 +495,7 @@ function Lightbox({ shots, startIndex, onClose }) {
     document.body.style.overflow = 'hidden'
     window.addEventListener('keydown', onKey)
     return () => {
+      clearTimeout(wheelTimer.current)
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
     }
@@ -538,10 +545,12 @@ function Lightbox({ shots, startIndex, onClose }) {
     }
   }
 
-  const onWheel = (e) => applyZoom(zoom + (e.deltaY < 0 ? 0.25 : -0.25))
-
-  const onDoubleClick = () => {
-    if (drag.current.onImg) applyZoom(zoom > 1 ? 1 : 2)
+  const onWheel = (e) => {
+    if (zoom <= 1) return
+    setPanning(true)
+    clearTimeout(wheelTimer.current)
+    wheelTimer.current = setTimeout(() => setPanning(false), 100)
+    setPan((p) => clampPan(p.x - e.deltaX, p.y - e.deltaY, zoom))
   }
 
   const onStageClick = (e) => {
@@ -551,7 +560,10 @@ function Lightbox({ shots, startIndex, onClose }) {
       d.moved = false
       return
     }
-    if (d.onImg) return
+    if (d.onImg) {
+      applyZoom(zoom > 1 ? 1 : 2)
+      return
+    }
     onClose()
   }
 
@@ -598,7 +610,6 @@ function Lightbox({ shots, startIndex, onClose }) {
         onPointerCancel={onPointerUp}
         onWheel={onWheel}
         onClick={onStageClick}
-        onDoubleClick={onDoubleClick}
       >
         <div className="lightbox_track" style={{ transform: `translateX(-${index * 100}%)` }}>
           {shots.map((t, i) => {
@@ -616,7 +627,7 @@ function Lightbox({ shots, startIndex, onClose }) {
                       ? {
                           transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
                           transition: panning ? 'none' : 'transform 0.25s ease',
-                          cursor: zoom > 1 ? (panning ? 'grabbing' : 'grab') : 'default',
+                          cursor: zoom > 1 ? 'zoom-out' : 'zoom-in',
                         }
                       : undefined
                   }
@@ -1002,7 +1013,7 @@ export default function ErpSystem() {
         <header className="proj-page_header">
           <h1>Business Management System</h1>
           <p className="proj-page_tagline">
-            A configurable sales, collections & payroll ERP system for businesses.
+            A configurable Sales, Collections & Payroll ERP System for businesses.
           </p>
           <p className="proj-page_meta">Full-stack developer</p>
 

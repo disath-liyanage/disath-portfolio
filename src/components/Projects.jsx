@@ -54,7 +54,7 @@ const PROJECTS = [
       tagline: 'A configurable sales, collections and payroll ERP system for businesses.',
       role: 'Full-stack developer',
       status: 'Live for 6+ months',
-      stats: ['4 editions', '5-6 users', '10-30 invoices/day'],
+      stats: ['4 Editions', '15+ Users', '50+ Invoices/day'],
       overview: 'A business management platform that runs the whole sales cycle: invoice requests and approvals, out-of-stock handling through supplier orders, customer collections with cheque reminders, automatic payroll with commissions and incentives, expenses and profit tracking, a product photo gallery for use in front of customers, and configurable reports. It ships in four editions, so each business gets only what it needs, and access is controlled by roles that can be customised per system.',
       sections: [
         {
