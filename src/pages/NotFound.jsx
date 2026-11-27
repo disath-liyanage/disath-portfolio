@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
 import InteractiveBackground from "../components/InteractiveBackground"
+import styles from "./NotFound.module.css"
 
 export default function NotFound() {
   const containerRef = useRef(null)
@@ -55,7 +56,8 @@ export default function NotFound() {
 
   return (
     <section 
-      ref={containerRef} 
+      ref={containerRef}
+      className={styles.section}
       style={{ 
         position: 'relative',
         minHeight: '100svh', 
@@ -71,6 +73,7 @@ export default function NotFound() {
       <InteractiveBackground isActive={true} />
 
       <div 
+        className={styles.inner}
         style={{ 
           display: 'flex', 
           flexDirection: 'row', 
@@ -85,6 +88,7 @@ export default function NotFound() {
       >
         
         <div 
+          className={styles.copy}
           style={{ 
             flex: '1 1 min(100%, 400px)', 
             display: 'flex', 
@@ -95,7 +99,7 @@ export default function NotFound() {
           }}
         >
           <h1 
-            className="fade-in" 
+            className={`fade-in ${styles.heading}`}
             style={{ 
               fontSize: 'clamp(3rem, 10vw, 5rem)', 
               fontWeight: 700, 
@@ -109,7 +113,7 @@ export default function NotFound() {
           </h1>
           
           <p 
-            className="fade-in" 
+            className={`fade-in ${styles.subtext}`}
             style={{ 
               fontSize: 'clamp(1rem, 4vw, 1.8rem)', 
               color: 'var(--text-muted, #ccc)', 
@@ -121,8 +125,9 @@ export default function NotFound() {
             You Seem To Be Lost!
           </p>
 
-          <div className="fade-in" style={{ marginTop: '1rem' }}>
+          <div className={`fade-in ${styles.ctaWrap}`} style={{ marginTop: '1rem' }}>
             <button
+              className={styles.ctaBtn}
               onClick={() => window.location.replace("/")}
               style={{
                 fontFamily: 'Outfit, Helvetica Neue, sans-serif',
@@ -157,6 +162,7 @@ export default function NotFound() {
         </div>
 
         <div 
+          className={styles.digits}
           style={{ 
             flex: '1 1 min(100%, 500px)', 
             position: 'relative', 
@@ -169,7 +175,7 @@ export default function NotFound() {
           }}
         >
           <span 
-            className="float-4-1"
+            className={`float-4-1 ${styles.digit}`}
             style={{ 
               position: 'absolute',
               left: '0%',
@@ -184,7 +190,7 @@ export default function NotFound() {
           </span>
 
           <span 
-            className="float-0"
+            className={`float-0 ${styles.digit}`}
             style={{ 
               position: 'absolute',
               left: '35%',
@@ -199,7 +205,7 @@ export default function NotFound() {
           </span>
 
           <span 
-            className="float-4-2"
+            className={`float-4-2 ${styles.digit}`}
             style={{ 
               position: 'absolute',
               right: '0%', 

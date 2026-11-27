@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import GlassFilter from './components/GlassFilter'
@@ -9,12 +9,13 @@ import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import CV from './pages/CV'
-import NotFound from './pages/NotFound'
-import ErpSystem from './pages/projects/ErpSystem'
-import Lensy from './pages/projects/Lensy'
 import SplashScreen from './components/SplashScreen'
 import { Analytics } from "@vercel/analytics/react"
+
+const CV = lazy(() => import('./pages/CV'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+const ErpSystem = lazy(() => import('./pages/projects/ErpSystem'))
+const Lensy = lazy(() => import('./pages/projects/Lensy'))
 
 function Home() {
   const location = useLocation()
@@ -59,14 +60,16 @@ function App() {
   return (
     <BrowserRouter>
       {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cv" element={<CV />} />
-        <Route path="/projects/erp-system" element={<ErpSystem />} />
-        <Route path="/projects/3ds-system" element={<Navigate to="/projects/erp-system" replace />} />
-        <Route path="/projects/lensy" element={<Lensy />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cv" element={<CV />} />
+          <Route path="/projects/erp-system" element={<ErpSystem />} />
+          <Route path="/projects/3ds-system" element={<Navigate to="/projects/erp-system" replace />} />
+          <Route path="/projects/lensy" element={<Lensy />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
       <Analytics />
     </BrowserRouter>
   )

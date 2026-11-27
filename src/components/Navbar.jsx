@@ -12,17 +12,16 @@ const LINKS = [
 
 function Navbar() {
   const [active, setActive] = useState('home')
-  const [pastHero, setPastHero] = useState(false)
+  const [pastHero, setPastHero] = useState(() =>
+    typeof document !== 'undefined' ? !document.getElementById('home') : false
+  )
   
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 })
   const linksRef = useRef(null)
 
   useEffect(() => {
     const hero = document.getElementById('home')
-    if (!hero) {
-      setPastHero(true)
-      return
-    }
+    if (!hero) return
     const observer = new IntersectionObserver(
       ([entry]) => setPastHero(!entry.isIntersecting),
       { rootMargin: '-80% 0px 0px 0px' }

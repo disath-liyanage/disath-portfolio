@@ -92,9 +92,6 @@ function Contact() {
     const form = event.currentTarget
     const formData = new FormData(form)
     const firstName = String(formData.get('firstName') || '').trim()
-    const mobileRaw = String(formData.get('mobile') || '').trim()
-    const mobile = mobileRaw.replace(/[^\d]/g, '')
-    const email = String(formData.get('email') || '').trim()
 
     setErrors((previous) => {
       const next = { ...previous }

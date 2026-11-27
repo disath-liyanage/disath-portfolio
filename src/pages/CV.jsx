@@ -23,10 +23,94 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString()
 
+const pillContainerStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.3rem',
+  backgroundColor: 'var(--glass-bg, rgba(255, 255, 255, 0.07))',
+  border: '1px solid var(--glass-border, rgba(255, 255, 255, 0.18))',
+  backdropFilter: 'blur(12px)',
+  padding: '0.3rem 0.5rem',
+  borderRadius: '9999px'
+}
+
+const circleBtnStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '36px',
+  height: '36px',
+  backgroundColor: 'var(--glass-bg, rgba(255, 255, 255, 0.07))',
+  border: '1px solid var(--glass-border, rgba(255, 255, 255, 0.18))',
+  borderRadius: '50%',
+  color: 'var(--text, #fff)',
+  cursor: 'pointer',
+  transition: 'all 0.2s ease',
+}
+
+const transparentCircleBtnStyle = {
+  ...circleBtnStyle,
+  backgroundColor: 'transparent',
+  border: 'none',
+}
+
+function ZoomControls({ scale, zoomIn, zoomOut, isMobile }) {
+  return (
+    <div style={pillContainerStyle}>
+      <button
+        onClick={zoomOut}
+        style={transparentCircleBtnStyle}
+        onMouseEnter={(e) => !isMobile && (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)')}
+        onMouseLeave={(e) => !isMobile && (e.currentTarget.style.backgroundColor = 'transparent')}
+      >
+        <ZoomOut size={16} />
+      </button>
+      <span style={{ fontSize: '0.85rem', fontFamily: 'Outfit, sans-serif', width: '45px', textAlign: 'center', userSelect: 'none' }}>
+        {Math.round(scale * 100)}%
+      </span>
+      <button
+        onClick={zoomIn}
+        style={transparentCircleBtnStyle}
+        onMouseEnter={(e) => !isMobile && (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)')}
+        onMouseLeave={(e) => !isMobile && (e.currentTarget.style.backgroundColor = 'transparent')}
+      >
+        <ZoomIn size={16} />
+      </button>
+    </div>
+  )
+}
+
+function PaginationControls({ pageNumber, numPages, scrollToPage }) {
+  return (
+    <div style={pillContainerStyle}>
+      <button
+        onClick={() => scrollToPage(pageNumber - 1)}
+        disabled={pageNumber <= 1}
+        style={{ ...transparentCircleBtnStyle, opacity: pageNumber <= 1 ? 0.3 : 1 }}
+      >
+        <ChevronLeft size={16} />
+      </button>
+      <span style={{ fontSize: '0.85rem', fontFamily: 'Outfit, sans-serif', margin: '0 0.5rem', userSelect: 'none' }}>
+        {pageNumber} / {numPages || '-'}
+      </span>
+      <button
+        onClick={() => scrollToPage(pageNumber + 1)}
+        disabled={pageNumber >= numPages}
+        style={{ ...transparentCircleBtnStyle, opacity: pageNumber >= numPages ? 0.3 : 1 }}
+      >
+        <ChevronRight size={16} />
+      </button>
+    </div>
+  )
+}
+
 export default function CV() {
   const navigate = useNavigate()
   
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [isMobileLandscape, setIsMobileLandscape] = useState(
+    () => window.innerWidth > window.innerHeight && window.innerHeight <= 520
+  )
   const [numPages, setNumPages] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
   
@@ -36,10 +120,15 @@ export default function CV() {
   const scrollContainerRef = useRef(null)
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+      setIsMobileLandscape(window.innerWidth > window.innerHeight && window.innerHeight <= 520)
+    }
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  const showBottomPagination = isMobile || isMobileLandscape
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages)
@@ -75,84 +164,7 @@ export default function CV() {
   }
 
   const zoomIn = () => setScale(prev => Math.min(prev + 0.2, 2.5))
-  const zoomOut = () => setScale(prev => Math.max(prev - 0.2, 0.4)) 
-
-  const pillContainerStyle = {
-    display: 'flex', 
-    alignItems: 'center', 
-    gap: '0.3rem', 
-    backgroundColor: 'var(--glass-bg, rgba(255, 255, 255, 0.07))', 
-    border: '1px solid var(--glass-border, rgba(255, 255, 255, 0.18))',
-    backdropFilter: 'blur(12px)',
-    padding: '0.3rem 0.5rem', 
-    borderRadius: '9999px'
-  }
-
-  const circleBtnStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '36px',
-    height: '36px',
-    backgroundColor: 'var(--glass-bg, rgba(255, 255, 255, 0.07))',
-    border: '1px solid var(--glass-border, rgba(255, 255, 255, 0.18))',
-    borderRadius: '50%',
-    color: 'var(--text, #fff)',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-  }
-
-  const transparentCircleBtnStyle = {
-    ...circleBtnStyle,
-    backgroundColor: 'transparent',
-    border: 'none',
-  }
-
-  const ZoomControls = () => (
-    <div style={pillContainerStyle}>
-      <button 
-        onClick={zoomOut} 
-        style={transparentCircleBtnStyle} 
-        onMouseEnter={(e) => !isMobile && (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)')}
-        onMouseLeave={(e) => !isMobile && (e.currentTarget.style.backgroundColor = 'transparent')}
-      >
-        <ZoomOut size={16} />
-      </button>
-      <span style={{ fontSize: '0.85rem', fontFamily: 'Outfit, sans-serif', width: '45px', textAlign: 'center', userSelect: 'none' }}>
-        {Math.round(scale * 100)}%
-      </span>
-      <button 
-        onClick={zoomIn} 
-        style={transparentCircleBtnStyle}
-        onMouseEnter={(e) => !isMobile && (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)')}
-        onMouseLeave={(e) => !isMobile && (e.currentTarget.style.backgroundColor = 'transparent')}
-      >
-        <ZoomIn size={16} />
-      </button>
-    </div>
-  )
-
-  const PaginationControls = () => (
-    <div style={pillContainerStyle}>
-      <button 
-        onClick={() => scrollToPage(pageNumber - 1)} 
-        disabled={pageNumber <= 1} 
-        style={{ ...transparentCircleBtnStyle, opacity: pageNumber <= 1 ? 0.3 : 1 }}
-      >
-        <ChevronLeft size={16} />
-      </button>
-      <span style={{ fontSize: '0.85rem', fontFamily: 'Outfit, sans-serif', margin: '0 0.5rem', userSelect: 'none' }}>
-        {pageNumber} / {numPages || '-'}
-      </span>
-      <button 
-        onClick={() => scrollToPage(pageNumber + 1)} 
-        disabled={pageNumber >= numPages} 
-        style={{ ...transparentCircleBtnStyle, opacity: pageNumber >= numPages ? 0.3 : 1 }}
-      >
-        <ChevronRight size={16} />
-      </button>
-    </div>
-  )
+  const zoomOut = () => setScale(prev => Math.max(prev - 0.2, 0.4))
 
   return (
     <section 
@@ -226,8 +238,8 @@ export default function CV() {
             zIndex: 1
           }}
         >
-          <ZoomControls />
-          {!isMobile && <PaginationControls />}
+          <ZoomControls scale={scale} zoomIn={zoomIn} zoomOut={zoomOut} isMobile={isMobile} />
+          {!showBottomPagination && <PaginationControls pageNumber={pageNumber} numPages={numPages} scrollToPage={scrollToPage} />}
         </div>
 
         <div style={{ zIndex: 2 }}>
@@ -276,18 +288,28 @@ export default function CV() {
             width: isMobile ? '240px' : (isSidebarOpen ? '220px' : '0px'),
             minWidth: isMobile ? '240px' : (isSidebarOpen ? '220px' : '0px'),
             transform: isMobile ? (isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)') : 'none',
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            transition: isMobile
+              ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+              : 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             backgroundColor: 'var(--surface-2, #16161b)',
-            borderRight: '1px solid var(--border)',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: (isSidebarOpen || isMobile) ? '1.5rem 1rem' : '0'
+            borderRight: isSidebarOpen || isMobile ? '1px solid var(--border)' : 'none',
+            overflow: 'hidden',
+            pointerEvents: isSidebarOpen ? 'auto' : 'none',
           }}
         >
-          {(isSidebarOpen || isMobile) && (
+          <div
+            style={{
+              width: isMobile ? '240px' : '220px',
+              height: '100%',
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              padding: '1.5rem 1rem',
+              boxSizing: 'border-box',
+            }}
+          >
             <Document file="/CV.pdf" onLoadSuccess={onDocumentLoadSuccess}>
               {Array.from(new Array(numPages), (el, index) => (
                 <div 
@@ -334,7 +356,7 @@ export default function CV() {
                 </div>
               ))}
             </Document>
-          )}
+          </div>
         </div>
 
         <div 
@@ -346,7 +368,7 @@ export default function CV() {
             display: 'flex', 
             flexDirection: 'column',
             alignItems: 'center',
-            padding: isMobile ? '1rem 1rem 5rem 1rem' : '2rem',
+            padding: isMobile ? '1rem 1rem 5rem 1rem' : (isMobileLandscape ? '2rem 2rem 5rem 2rem' : '2rem'),
             backgroundColor: 'var(--bg)',
             scrollBehavior: 'smooth'
           }}
@@ -383,12 +405,13 @@ export default function CV() {
           </Document>
         </div>
         
-        {isMobile && (
+        {showBottomPagination && (
           <div style={{
             position: 'absolute',
             bottom: '1.5rem',
-            left: '50%',
+            left: isMobile ? '50%' : `calc(50% + ${isSidebarOpen ? 110 : 0}px)`,
             transform: 'translateX(-50%)',
+            transition: 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             zIndex: 20,
             backgroundColor: 'rgba(8, 8, 10, 0.6)',
             padding: '4px',
@@ -396,7 +419,7 @@ export default function CV() {
             boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
             backdropFilter: 'blur(10px)'
           }}>
-            <PaginationControls />
+            <PaginationControls pageNumber={pageNumber} numPages={numPages} scrollToPage={scrollToPage} />
           </div>
         )}
 
