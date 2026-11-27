@@ -691,7 +691,12 @@ export function ShotSlider({ shots, size = [3024, 1724] }) {
   const [m, setM] = useState({ scrollable: false, canPrev: false, canNext: false, active: 0 })
   const [scrubbing, setScrubbing] = useState(false)
   const [openAt, setOpenAt] = useState(null)
-  const closeLightbox = useCallback(() => setOpenAt(null), [])
+  const closeLightbox = useCallback(() => {
+    setOpenAt(null)
+    if (document.activeElement?.classList?.contains('shots_open')) {
+      document.activeElement.blur()
+    }
+  }, [])
 
   const update = useCallback(() => {
     const el = trackRef.current
@@ -889,7 +894,10 @@ export function ShotSlider({ shots, size = [3024, 1724] }) {
                 type="button"
                 className="shots_open"
                 style={{ aspectRatio: frameRatio }}
-                onClick={() => setOpenAt(i)}
+                onClick={(e) => {
+                  e.currentTarget.blur()
+                  setOpenAt(i)
+                }}
                 aria-label={`Enlarge: ${s.caption}`}
               >
                 <img src={s.src} alt={s.caption} loading="lazy" decoding="async" draggable="false" />
