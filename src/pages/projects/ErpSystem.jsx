@@ -5,6 +5,7 @@ import GlassFilter from '../../components/GlassFilter'
 import MorphFilter from '../../components/MorphFilter'
 import Footer from '../../components/Footer'
 import { usePageSeo } from '../../seo/usePageSeo'
+import { useScrollReveal } from './useScrollReveal'
 import '../../components/Projects.css'
 
 const dashboard = '/images/erp-system/general/dashboard.webp'
@@ -461,55 +462,6 @@ const preloadImage = (src) => {
   img.src = src
 }
 
-export function useScrollReveal(containerRef) {
-  useEffect(() => {
-    const root = containerRef.current
-    if (!root) return
-
-    const targets = Array.from(root.querySelectorAll('[data-reveal]'))
-    if (!targets.length) return
-
-    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-
-    targets.forEach((el) => {
-      const items = []
-      Array.from(el.children).forEach((child) => {
-        if (child.matches('.proj-sec_title, .proj-group_title, .proj-sec_text, .shots, .proj-variants_item, .proj-next_group')) {
-          items.push(child)
-        } else if (child.matches('.proj-sec_list')) {
-          items.push(...Array.from(child.children))
-        } else if (child.matches('.proj-groups-grid')) {
-          items.push(...Array.from(child.children))
-        }
-      })
-      items.forEach((item, idx) => {
-        item.classList.add('proj-reveal-item')
-        item.style.setProperty('--reveal-i', String(Math.min(idx, 6)))
-      })
-    })
-
-    if (reduced || typeof IntersectionObserver === 'undefined') {
-      targets.forEach((el) => el.classList.add('is-revealed'))
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.06, rootMargin: '0px 0px -32px 0px' }
-    )
-
-    targets.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [containerRef])
-}
-
 function ShotImage({ src, alt, eager }) {
   return (
     <img
@@ -544,7 +496,13 @@ function Lightbox({ shots, startIndex, onClose }) {
   const multi = shots.length > 1
   const current = shots[index]
 
-  const step = (dir) => setIndex((i) => Math.max(0, Math.min(last, i + dir)))
+  const goTo = useCallback((nextIndex) => {
+    setIndex(Math.max(0, Math.min(last, nextIndex)))
+    setZoom(1)
+    setPan({ x: 0, y: 0 })
+  }, [last])
+
+  const step = (dir) => goTo(index + dir)
 
   const clampPan = (x, y, z) => {
     const stage = stageRef.current
@@ -567,8 +525,8 @@ function Lightbox({ shots, startIndex, onClose }) {
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape') onClose()
-      if (e.key === 'ArrowRight') setIndex((i) => Math.min(last, i + 1))
-      if (e.key === 'ArrowLeft') setIndex((i) => Math.max(0, i - 1))
+      if (e.key === 'ArrowRight') goTo(index + 1)
+      if (e.key === 'ArrowLeft') goTo(index - 1)
     }
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
@@ -578,11 +536,9 @@ function Lightbox({ shots, startIndex, onClose }) {
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
     }
-  }, [last, onClose])
+  }, [goTo, index, onClose])
 
   useEffect(() => {
-    setZoom(1)
-    setPan({ x: 0, y: 0 })
     activeThumb.current?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' })
     preloadImage(shots[index - 1]?.src)
     preloadImage(shots[index + 1]?.src)
@@ -756,7 +712,7 @@ function Lightbox({ shots, startIndex, onClose }) {
                 ref={i === index ? activeThumb : null}
                 type="button"
                 className={`lightbox_thumb ${i === index ? 'is-active' : ''}`}
-                onClick={() => setIndex(i)}
+                onClick={() => goTo(i)}
                 aria-label={`Show photo ${i + 1}: ${t.caption}`}
                 aria-current={i === index}
               >

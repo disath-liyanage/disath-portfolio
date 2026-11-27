@@ -9,19 +9,19 @@ const PRESETS = {
 
 const SANS_STACK = '"Inter Tight", "Inter Variable", "Inter", "Helvetica Neue", Arial, system-ui, sans-serif'
 
-export function hwfHex(hex) {
+function hwfHex(hex) {
   const m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec((hex || "").trim())
   if (!m) return null
   const h = m[1].length === 3 ? m[1].split("").map((c) => c + c).join("") : m[1]
   return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]
 }
 
-export function hwfRadius(coverage, gap) {
+function hwfRadius(coverage, gap) {
   const c = coverage < 0 ? 0 : coverage > 1 ? 1 : coverage
   return Math.sqrt(c) * gap * 0.56
 }
 
-export function hwfStep(x, y, vx, vy, hx, hy, px, py, r) {
+function hwfStep(x, y, vx, vy, hx, hy, px, py, r) {
   const dx = x - px
   const dy = y - py
   const d2 = dx * dx + dy * dy
@@ -36,12 +36,12 @@ export function hwfStep(x, y, vx, vy, hx, hy, px, py, r) {
   return [x + vx, y + vy, vx, vy]
 }
 
-export function hwfWarmth(x, y, hx, hy, span) {
+function hwfWarmth(x, y, hx, hy, span) {
   const d = Math.hypot(x - hx, y - hy)
   return span > 0 ? Math.min(1, d / span) : 0
 }
 
-export function hwfFitSize(measured, width) {
+function hwfFitSize(measured, width) {
   return measured > 0 ? (width / measured) * 100 : 0
 }
 
@@ -63,7 +63,9 @@ export default function HalftoneWordmarkFooter({
   const rootRef = React.useRef(null)
   const canvasRef = React.useRef(null)
   const opts = React.useRef({ colors, dotGap, radius, crop, grain, interactive, fontFamily, fontWeight, wordmark })
-  opts.current = { colors, dotGap, radius, crop, grain, interactive, fontFamily, fontWeight, wordmark }
+  React.useEffect(() => {
+    opts.current = { colors, dotGap, radius, crop, grain, interactive, fontFamily, fontWeight, wordmark }
+  })
   const key = [wordmark, dotGap, crop, grain, fontFamily, fontWeight, colors.background, colors.ink, colors.warm].join("|")
 
   React.useEffect(() => {

@@ -30,7 +30,6 @@ const FRAG_SRC = `
     vec2 uv = fragCoord / iResolution.xy;
     vec2 m2 = uv - 0.5;
 
-    // Perfect circle math
     float roundedBox = dot(m2, m2); 
 
     float rb1 = clamp((1.0 - roundedBox * 4.0) * 8.0, 0.0, 1.0);
