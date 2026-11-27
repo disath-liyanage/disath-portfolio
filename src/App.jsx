@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import GlassFilter from './components/GlassFilter'
 import MorphFilter from './components/MorphFilter'
@@ -63,6 +63,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cv" element={<CV />} />
         <Route path="/projects/erp-system" element={<ErpSystem />} />
+        <Route path="/projects/3ds-system" element={<Navigate to="/projects/erp-system" replace />} />
         <Route path="/projects/lensy" element={<Lensy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
