@@ -1,9 +1,10 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import GlassFilter from '../../components/GlassFilter'
 import MorphFilter from '../../components/MorphFilter'
 import Footer from '../../components/Footer'
 import { ShotSlider, MailIcon, useScrollReveal } from './ErpSystem'
+import { usePageSeo } from '../../seo/usePageSeo'
 import '../../components/Projects.css'
 
 const timer = '/images/Lensy/timer.webp'
@@ -155,23 +156,7 @@ export default function Lensy() {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [])
 
-  useEffect(() => {
-    const prevTitle = document.title
-    const meta = document.querySelector('meta[name="description"]')
-    const prevDesc = meta?.getAttribute('content')
-    const canonical = document.querySelector('link[rel="canonical"]')
-    const prevCanonical = canonical?.getAttribute('href')
-
-    document.title = 'Lensy | Disath Liyanage'
-    meta?.setAttribute('content', 'A native Apple app for tracking how long you wear your contact lenses.')
-    canonical?.setAttribute('href', 'https://www.disath.dev/projects/lensy')
-
-    return () => {
-      document.title = prevTitle
-      if (meta && prevDesc) meta.setAttribute('content', prevDesc)
-      if (canonical && prevCanonical) canonical.setAttribute('href', prevCanonical)
-    }
-  }, [])
+  usePageSeo('/projects/lensy')
 
   const scrollToHomeSection = (id, focusField = null) => (e) => {
     e.preventDefault()
